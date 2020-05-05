@@ -1,10 +1,8 @@
-package utn.telefonica.app.Model;
+package utn.telefonica.app.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.text.DecimalFormat;
 
 @AllArgsConstructor
 @NoArgsConstructor

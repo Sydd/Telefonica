@@ -1,4 +1,4 @@
-package utn.telefonica.app.Model;
+package utn.telefonica.app.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
