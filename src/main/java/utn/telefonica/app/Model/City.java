@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Citie {
+public class City {
 
     private int id_city;  //Entity
     private String city_name;
