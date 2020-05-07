@@ -7,6 +7,8 @@ import utn.telefonica.app.repository.CostumerRepository;
 
 import java.util.List;
 
+import static java.util.Objects.isNull;
+
 @Service
 public class CostumerService {
 
@@ -25,7 +27,12 @@ public class CostumerService {
        return  costumerRepository.findById(i).get();
     }
 
-    public List<Costumer> getAllCostumers() {
-        return costumerRepository.findAll();
+    public List<Costumer> getAllCostumers(String firstName) {
+        if(isNull(firstName)) {
+            return costumerRepository.findAll();
+        }
+
+      return  costumerRepository.findByFirstName(firstName);
     }
+
 }

@@ -29,7 +29,7 @@ public class CostumerController {
     }
 
     @GetMapping("/")
-    public List<Costumer> getAll(){
-        return costumerService.getAllCostumers();
+    public List<Costumer> getAll(@RequestParam(required = false) String firstname){
+        return costumerService.getAllCostumers(firstname);
     }
 }

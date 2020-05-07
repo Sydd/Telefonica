@@ -4,13 +4,29 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
+
+@Entity
 @Data
+@Table(name = "cities")
 public class City {
 
-    private int id_city;  //Entity
-    private String city_name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id_city")
+    private int id;  //Entity
+
+    @Column(name = "city_name", unique = true)
+    private String cityName;
+
     private int line_prefix;
     private int id_state;
+
+    @OneToMany(mappedBy = "city")
+    private List<Costumer> costumers;
 }
