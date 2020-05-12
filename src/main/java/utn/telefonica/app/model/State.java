@@ -4,12 +4,23 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Entity
 public class State {
 
-    private int id_state; //Entity
-    private String state_name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_state")
+    private int id; //Entity
 
+    @Column(name = "state_name")
+    private String stateName;
+
+    @OneToMany(mappedBy = "state")
+    private List<City> cities;
 }

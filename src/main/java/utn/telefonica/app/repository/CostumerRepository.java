@@ -1,4 +1,4 @@
-package utn.telefonica.app.repository;
+package utn.telefonica.app.Repository;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;

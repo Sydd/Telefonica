@@ -1,9 +1,9 @@
-package utn.telefonica.app.service;
+package utn.telefonica.app.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import utn.telefonica.app.model.Costumer;
-import utn.telefonica.app.repository.CostumerRepository;
+import utn.telefonica.app.Repository.CostumerRepository;
 
 import java.util.List;
 

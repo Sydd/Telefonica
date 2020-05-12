@@ -1,5 +1,6 @@
 package utn.telefonica.app.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,4 +30,8 @@ public class City {
 
     @OneToMany(mappedBy = "city")
     private List<Costumer> costumers;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonBackReference
+    private State state;
 }
