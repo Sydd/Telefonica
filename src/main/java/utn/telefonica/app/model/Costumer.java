@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -30,6 +31,10 @@ public class Costumer {
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     private City city;
+
+
+    @OneToMany(mappedBy = "customer")
+    private List<Line> lines;
 
 
 
