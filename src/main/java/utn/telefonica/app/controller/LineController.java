@@ -1,4 +1,4 @@
-package utn.telefonica.app.Controller;
+package utn.telefonica.app.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +31,7 @@ public class LineController{
     }
 
     @GetMapping("/")
-    public List<Line> getAll (@RequestParam(required = false) int lineNumber)
+    public List<Line> getAll (@RequestParam(required = false) String lineNumber)
     {
         return lineService.getAllLines(lineNumber);
     }

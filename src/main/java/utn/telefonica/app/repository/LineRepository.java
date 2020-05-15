@@ -9,6 +9,6 @@ import java.util.List;
 @Repository
 public interface LineRepository extends JpaRepository<Line,Integer> {
 
-    List<Line> findByLineNumber(Integer id);
+    List<Line> findByLineNumber(String lineNumber);
 
 }

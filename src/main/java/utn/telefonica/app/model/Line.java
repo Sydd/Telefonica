@@ -11,7 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name ="lines")
+@Table(name ="phonelines")
 public class Line {
 
     @Id
@@ -19,12 +19,13 @@ public class Line {
     @Column(name = "id_line")
     private int id; //Entity
 
+    private String lineType;
 
-    private String tipe;
-    private String line_number;
+    @Column(name = "line_number")
+    private String lineNumber;
 
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JsonBackReference
-    private Costumer costumer;
+  //  @ManyToOne(fetch = FetchType.EAGER)
+    //@JsonBackReference
+    //private Costumer costumer;
 }

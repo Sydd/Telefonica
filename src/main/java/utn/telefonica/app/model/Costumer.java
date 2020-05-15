@@ -25,7 +25,7 @@ public class Costumer {
     private String lastName;
     private String username;
     private String password;
-    @Column(name = "created_at", columnDefinition = "date default now()")
+    @Column(name = "created_at")
     private java.sql.Timestamp createdAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -33,10 +33,8 @@ public class Costumer {
     private City city;
 
 
-    @OneToMany(mappedBy = "customer")
-    private List<Line> lines;
-
-
+  //  @OneToMany(mappedBy = "costumer")
+    //private List<Line> lines;
 
 
 }

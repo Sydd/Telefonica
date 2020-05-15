@@ -28,7 +28,7 @@ public class LineService {
         return lineRepository.findById(Id).get();
     }
 
-    public List<Line> getAllLines(int lineNumber) {
+    public List<Line> getAllLines(String lineNumber) {
         if(isNull(lineNumber))
         {
             return lineRepository.findAll();
