@@ -1,8 +1,8 @@
-package utn.telefonica.app.Projections;
+package utn.telefonica.app.projections;
 
 public interface StateCant {
 
     String getName();
 
-    Integer getcant();
+    Integer getCant();
 }

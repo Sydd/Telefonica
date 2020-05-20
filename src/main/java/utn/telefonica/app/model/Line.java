@@ -25,7 +25,7 @@ public class Line {
     private String lineNumber;
 
 
-  @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonBackReference
-    private Costumer costumer;
+    private Customer customer;
 }

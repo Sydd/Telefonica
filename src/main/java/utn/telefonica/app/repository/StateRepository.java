@@ -3,7 +3,7 @@ package utn.telefonica.app.Repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import utn.telefonica.app.Projections.StateCant;
+import utn.telefonica.app.projections.StateCant;
 import utn.telefonica.app.model.State;
 import java.util.List;
 

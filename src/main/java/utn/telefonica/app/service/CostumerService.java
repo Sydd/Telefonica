@@ -1,38 +1,67 @@
-package utn.telefonica.app.Service;
+package utn.telefonica.app.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import utn.telefonica.app.model.Costumer;
-import utn.telefonica.app.Repository.CostumerRepository;
+import utn.telefonica.app.exceptions.UserNotexistException;
+import utn.telefonica.app.exceptions.ValidationException;
+import utn.telefonica.app.model.Customer;
 
 import java.util.List;
+import java.util.Optional;
 
 import static java.util.Objects.isNull;
 
 @Service
 public class CostumerService {
 
-    private final CostumerRepository costumerRepository;
+    private final utn.telefonica.app.Repository.CustomerRepository customerRepository;
 
     @Autowired
-    public CostumerService (CostumerRepository costumerRepository){
-        this.costumerRepository = costumerRepository;
+    public CostumerService (utn.telefonica.app.Repository.CustomerRepository customerRepository){
+        this.customerRepository = customerRepository;
     }
 
-    public void addCostumer(Costumer costumer) {
-        costumerRepository.save(costumer);
+
+    //Costumer loggin added. Desde el loginController se pide
+    public Customer login(String username, String password) throws UserNotexistException, ValidationException{
+        if(username == null || password == null){
+            throw new ValidationException("username and password must have a value!");
+        }
+        Customer customer = customerRepository.findByUsernameAndPassword(username,password);
+        return Optional.ofNullable(customer).orElseThrow(()-> new UserNotexistException());
     }
 
-    public Costumer getCostumerById(Integer i){
-       return  costumerRepository.findById(i).get();
+
+    public ResponseEntity addCostumer(Customer customer) {
+        try {
+
+            customerRepository.save(customer);
+
+            System.out.println("New user: " + customer.getUsername());
+
+
+            return ResponseEntity.ok("Customer " + customer.getFirstName() + " saved.");
+
+        } catch (Exception E) {
+
+            System.out.println("Tried to created a customer with an used username.");
+
+            return new ResponseEntity("User already exist",HttpStatus.CONFLICT);
+        }
     }
 
-    public List<Costumer> getAllCostumers(String firstName) {
+    public Customer getCostumerById(Integer i){
+       return  customerRepository.findById(i).get();
+    }
+
+    public List<Customer> getAllCostumers(String firstName) {
         if(isNull(firstName)) {
-            return costumerRepository.findAll();
+            return customerRepository.findAll();
         }
 
-      return  costumerRepository.findByFirstName(firstName);
+      return  customerRepository.findByFirstName(firstName);
     }
 
 }

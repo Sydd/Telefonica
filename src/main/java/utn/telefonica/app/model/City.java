@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @AllArgsConstructor
@@ -29,7 +28,7 @@ public class City {
     private int id_state;
 
     @OneToMany(mappedBy = "city")
-    private List<Costumer> costumers;
+    private List<Customer> customers;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JsonBackReference
