@@ -8,6 +8,7 @@ import utn.telefonica.app.exceptions.UserNotexistException;
 import utn.telefonica.app.exceptions.ValidationException;
 import utn.telefonica.app.model.Customer;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,6 +38,7 @@ public class CostumerService {
     public ResponseEntity addCostumer(Customer customer) {
         try {
 
+            customer.setCreatedAt(Calendar.getInstance().getTime());
             customerRepository.save(customer);
 
             System.out.println("New user: " + customer.getUsername());
@@ -53,7 +55,7 @@ public class CostumerService {
     }
 
     public Customer getCostumerById(Integer i){
-       return  customerRepository.findById(i).get();
+       return  customerRepository.findById(i).get(); // todo poner or else trhow.
     }
 
     public List<Customer> getAllCostumers(String firstName) {

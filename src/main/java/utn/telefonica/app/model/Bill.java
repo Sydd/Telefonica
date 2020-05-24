@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.Date;
 
 @AllArgsConstructor
@@ -11,12 +14,23 @@ import java.util.Date;
 @Data
 public class Bill {
 
-    private int id_bill; // Entity
-    private int id_Costumer;  // Aca tal vez podriamos hacer que traiga de la bd todo el customer completo si es que nos sirve
-    private int id_line;
-    private int total_calls;
-    private int cost_price;
-    private int total_price;
+    @Id
+    @GeneratedValue
+    @Column(name = "id_bill")
+    private int id;
+
+    @Column(name = "id_customer")
+    private Customer customer;  // Aca tal vez podriamos hacer que traiga de la bd todo el customer completo si es que nos sirve
+    @Column(name = "id_line")
+    private Line line;
+
+    @Column (name = "total_calls")
+    private int totalCalls;
+    @Column (name = "total_calls")
+    private int costPrice;
+    @Column (name = "total_calls")
+    private int finalPrice;
+    @Column (name = "total_calls")
     private Date created_at;
     private Date due_date;
 }

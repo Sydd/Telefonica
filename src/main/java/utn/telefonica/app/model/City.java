@@ -24,8 +24,8 @@ public class City {
     @Column(name = "city_name", unique = true)
     private String cityName;
 
-    private int line_prefix;
-    private int id_state;
+    @Column(name = "line_prefix", unique = true)
+    private int linePrefix;
 
     @OneToMany(mappedBy = "city")
     private List<Customer> customers;

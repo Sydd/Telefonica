@@ -32,7 +32,7 @@ public class Customer {
     private String password;
 
     @Column(name = "created_at")
-    private java.sql.Timestamp createdAt;
+    private Date createdAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference

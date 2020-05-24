@@ -4,18 +4,45 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Table(name = "calls")
 public class Call {
 
-    private int id_call;
-    private int id_line_from;
-    private int ld_line_to;
-    private int id_city_from;
-    private int id_city_to;
-    private int id_rate;
+    @Id
+    @GeneratedValue
+    @Column(name = "id_call")
+    private int id;
+
+    @Column(name = "id_line_from")
+    private Line lineFrom;
+
+    @Column(name = "id_line_to")
+    private Line lineTo;
+
+    @Column(name = "id_city_from")
+    private City cityFrom;
+
+    @Column(name = "id_city_to")
+    private City cityTo;
+
+    @Column(name = "id_rate")
+    private Rate rate;
+
+    @Column(name = "call_duration")
     private float call_duration;
+
+    @Column(name = "total_price")
     private float total_price;
-    private int id_bill;
+
+    @Column(name = "id_bill")
+    private Bill bill;
+
+
 }

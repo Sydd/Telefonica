@@ -17,8 +17,10 @@ public class Employer {
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Column(name = "id_employer")
         private int id; // Entity
+
         @Column(name = "first_name")
         private String firstName;
+
         @Column(name = "last_name")
         private String lastName;
 
