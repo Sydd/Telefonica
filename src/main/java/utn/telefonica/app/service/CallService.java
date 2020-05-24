@@ -1,8 +1,8 @@
-package utn.telefonica.app.Service;
+package utn.telefonica.app.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import utn.telefonica.app.Repository.CallRepository;
+import utn.telefonica.app.repository.CallRepository;
 import utn.telefonica.app.model.Call;
 
 @Service

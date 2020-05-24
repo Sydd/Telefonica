@@ -1,9 +1,9 @@
-package utn.telefonica.app.Controller;
+package utn.telefonica.app.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import utn.telefonica.app.Service.CostumerService;
+import utn.telefonica.app.service.CostumerService;
 import utn.telefonica.app.model.Customer;
 
 import java.util.List;

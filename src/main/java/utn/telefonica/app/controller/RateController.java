@@ -1,8 +1,8 @@
-package utn.telefonica.app.Controller;
+package utn.telefonica.app.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import utn.telefonica.app.Service.RateService;
+import utn.telefonica.app.service.RateService;
 import utn.telefonica.app.model.Rate;
 
 @RestController

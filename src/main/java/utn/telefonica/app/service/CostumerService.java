@@ -1,4 +1,4 @@
-package utn.telefonica.app.Service;
+package utn.telefonica.app.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,10 +17,10 @@ import static java.util.Objects.isNull;
 @Service
 public class CostumerService {
 
-    private final utn.telefonica.app.Repository.CustomerRepository customerRepository;
+    private final utn.telefonica.app.repository.CustomerRepository customerRepository;
 
     @Autowired
-    public CostumerService (utn.telefonica.app.Repository.CustomerRepository customerRepository){
+    public CostumerService (utn.telefonica.app.repository.CustomerRepository customerRepository){
         this.customerRepository = customerRepository;
     }
 

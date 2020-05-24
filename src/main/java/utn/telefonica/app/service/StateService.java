@@ -1,9 +1,9 @@
-package utn.telefonica.app.Service;
+package utn.telefonica.app.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import utn.telefonica.app.Projections.StateCant;
-import utn.telefonica.app.Repository.StateRepository;
+import utn.telefonica.app.projections.StateCant;
+import utn.telefonica.app.repository.StateRepository;
 import utn.telefonica.app.model.State;
 
 import java.util.List;

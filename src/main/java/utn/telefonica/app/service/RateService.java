@@ -1,9 +1,8 @@
-package utn.telefonica.app.Service;
+package utn.telefonica.app.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import utn.telefonica.app.Controller.RateController;
-import utn.telefonica.app.Repository.RateRepository;
+import utn.telefonica.app.repository.RateRepository;
 import utn.telefonica.app.model.Rate;
 
 @Service

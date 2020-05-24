@@ -1,9 +1,9 @@
-package utn.telefonica.app.Service;
+package utn.telefonica.app.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import utn.telefonica.app.model.City;
-import utn.telefonica.app.Repository.CityRepository;
+import utn.telefonica.app.repository.CityRepository;
 
 import java.util.List;
 

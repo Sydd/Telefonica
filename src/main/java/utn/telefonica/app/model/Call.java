@@ -30,12 +30,12 @@ public class Call {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
-   // @JoinColumn(name = "id_city_to")
+    @JoinColumn(name = "id_city_to")
     private City cityTo;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
-   // @JoinColumn(name = "id_city_from")
+    @JoinColumn(name = "id_city_from")
     private City cityFrom;
 
     @ManyToOne(fetch = FetchType.LAZY)
