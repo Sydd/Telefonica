@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "calls")
-public class Call {
+public class Call{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,5 +40,5 @@ public class Call {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
-    private Rate rates;
+    private Rate rate;
 }

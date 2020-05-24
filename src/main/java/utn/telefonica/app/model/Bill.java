@@ -10,9 +10,9 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Table(name = "bills")
 @Entity
-public class Bill {
+@Table(name = "bills")
+public class Bill{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,5 +36,6 @@ public class Bill {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JsonBackReference
-    private Line lines;
+    private Line line;
+
 }

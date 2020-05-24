@@ -10,7 +10,6 @@ import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
-
 @Entity
 @Data
 @Table(name = "cities")
@@ -28,13 +27,14 @@ public class City{
     @OneToMany(mappedBy = "city")
     private List<Customer> customers;
 
-    @OneToMany(mappedBy = "city")
-    private List<Call> call;
+    /*@OneToMany(mappedBy = "city")
+    private List<Call> calls;*/
 
-    @OneToMany(mappedBy = "city")
-    private List<Rate> rates;
+   /*@OneToMany(mappedBy = "city")
+    private List<Rate> rate;
+    */
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     private State state;
 }

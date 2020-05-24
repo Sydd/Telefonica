@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.List;
 
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -29,6 +30,6 @@ public class Rate {
     @JsonBackReference
     private City cities;
 
-    @OneToMany(mappedBy = "rate")
+  @OneToMany(mappedBy = "rate")
     private List<Call> calls;
 }

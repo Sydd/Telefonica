@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import utn.telefonica.app.model.Bill;
 
 import javax.persistence.*;
 import java.util.List;
@@ -23,14 +24,18 @@ public class Line {
     @Column(name = "line_number")
     private String lineNumber;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+
+
+
+    /*@OneToMany(mappedBy = "phonelines")
+    private List<Bill> bills;*/
+
+
+
+    /* @OneToMany(mappedBy = "phonelines")
+    private List<Call> calls; */
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     private Customer customer;
-
-
-    @OneToMany(mappedBy = "phonelines")
-    private List<Bill> bills;
-
-    @OneToMany(mappedBy = "phonelines")
-    private List<Call> calls;
 }
