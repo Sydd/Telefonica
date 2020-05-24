@@ -20,15 +20,19 @@ public class City {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id_city")
     private int id;  //Entity
-
     @Column(name = "city_name", unique = true)
     private String cityName;
-
-    private int line_prefix;
-    private int id_state;
+    @Column(name = "line_prefix")
+    private int linePrefix;
 
     @OneToMany(mappedBy = "city")
     private List<Customer> customers;
+
+    @OneToMany(mappedBy = "city")
+    private List<Call> call;
+
+    @OneToMany(mappedBy = "city")
+    private List<Rate> rates;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JsonBackReference

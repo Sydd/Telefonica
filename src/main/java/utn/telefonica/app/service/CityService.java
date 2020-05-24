@@ -1,4 +1,4 @@
-package utn.telefonica.app.service;
+package utn.telefonica.app.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

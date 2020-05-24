@@ -39,8 +39,11 @@ public class Customer {
     private City city;
 
 
-  //  @OneToMany(mappedBy = "costumer")
-    //private List<Line> lines;
+    @OneToMany(mappedBy = "customer")
+    private List<Line> lines;
+
+    @OneToMany(mappedBy = "customer")
+    private List<Bill> bills;
 
 
 }

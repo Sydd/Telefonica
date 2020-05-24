@@ -1,0 +1,27 @@
+package utn.telefonica.app.Service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import utn.telefonica.app.Repository.CallRepository;
+import utn.telefonica.app.model.Call;
+
+@Service
+public class CallService {
+    private final CallRepository callRepository;
+
+    @Autowired
+    public CallService(CallRepository callRepository) {
+        this.callRepository = callRepository;
+    }
+
+    public void addCall(Call call)
+    {
+        callRepository.save(call);
+    }
+
+    public Call getCallById(Integer i)
+    {
+        return callRepository.findById(i).get();
+    }
+}
+

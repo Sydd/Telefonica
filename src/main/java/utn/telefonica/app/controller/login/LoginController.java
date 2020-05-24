@@ -1,14 +1,15 @@
-package utn.telefonica.app.controller.login;
+package utn.telefonica.app.Controller.login;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import utn.telefonica.app.Service.CostumerService;
 import utn.telefonica.app.dto.LoginRequestDto;
 import utn.telefonica.app.exceptions.*;
 import utn.telefonica.app.model.Customer;
 import utn.telefonica.app.session.SessionManager;
-import utn.telefonica.app.service.*;
+import utn.telefonica.app.Service.*;
 
 @RestController
 @RequestMapping("/")

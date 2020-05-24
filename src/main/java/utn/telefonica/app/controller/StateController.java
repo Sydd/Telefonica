@@ -1,9 +1,9 @@
-package utn.telefonica.app.controller;
+package utn.telefonica.app.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import utn.telefonica.app.projections.StateCant;
-import utn.telefonica.app.service.StateService;
+import utn.telefonica.app.Projections.StateCant;
+import utn.telefonica.app.Service.StateService;
 import utn.telefonica.app.model.State;
 
 import java.util.List;
