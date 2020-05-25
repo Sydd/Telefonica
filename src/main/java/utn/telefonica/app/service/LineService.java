@@ -3,7 +3,7 @@ package utn.telefonica.app.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import utn.telefonica.app.repository.LineRepository;
-import utn.telefonica.app.model.Line;
+import utn.telefonica.app.model.PhoneLine;
 
 import java.util.List;
 
@@ -18,17 +18,17 @@ public class LineService {
         this.lineRepository = lineRepository;
     }
 
-    public void addLine(Line line)
+    public void addLine(PhoneLine line)
     {
         lineRepository.save(line);
     }
 
-    public Line getLineById(Integer Id)
+    public PhoneLine getLineById(Integer Id)
     {
         return lineRepository.findById(Id).get();
     }
 
-    public List<Line> getAllLines(String lineNumber) {
+    public List<PhoneLine> getAllLines(String lineNumber) {
         if(isNull(lineNumber))
         {
             return lineRepository.findAll();

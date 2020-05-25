@@ -29,7 +29,7 @@ public class Rate {
     @ManyToOne(fetch = FetchType.EAGER)
     @JsonBackReference
     private City cities;
-
+/*
   @OneToMany(mappedBy = "rate")
-    private List<Call> calls;
+    private List<Call> calls;/*/
 }

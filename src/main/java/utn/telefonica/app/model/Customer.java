@@ -37,9 +37,8 @@ public class Customer {
     @JsonBackReference
     private City city;
 
-
     @OneToMany(mappedBy = "customer")
-    private List<Line> lines;
+    private List<PhoneLine> phoneLines;
 
     @OneToMany(mappedBy = "customer")
     private List<Bill> bills;

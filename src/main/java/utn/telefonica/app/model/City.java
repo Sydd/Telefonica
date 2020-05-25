@@ -1,6 +1,9 @@
 package utn.telefonica.app.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,12 +30,19 @@ public class City{
     @OneToMany(mappedBy = "city")
     private List<Customer> customers;
 
-    /*@OneToMany(mappedBy = "city")
-    private List<Call> calls;*/
+    //EL MappedBy lleva el nombre del atributo en la clase referenciada. En nuestor caso CityTo.
+    @OneToMany(mappedBy = "cityTo")
+    @JsonIgnore
+    private List<Call> callsFrom;
 
-   /*@OneToMany(mappedBy = "city")
-    private List<Rate> rate;
-    */
+    //EL MappedBy lleva el nombre del atributo en la clase referenciada. En nuestor caso CityFrom.
+    @OneToMany(mappedBy = "cityFrom")
+    @JsonIgnore
+    private List<Call> callsTo;
+
+  // @OneToMany(mappedBy = "city")
+  //private List<Rate> rate;*/
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference

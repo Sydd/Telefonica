@@ -26,19 +26,20 @@ public class Call{
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
-    private Line lines;
+    private PhoneLine phoneLine;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonBackReference
-    @JoinColumn(name = "id_city_to")
+    @JsonBackReference(value = "city_to")
+   // @JoinColumn(name = "id_city_to")
     private City cityTo;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonBackReference
-    @JoinColumn(name = "id_city_from")
-    private City cityFrom;
+    //SI TENES MAS DE UN JSONBACKREFERENCE TENES QUE PONERLE DISTINTO NOMBRE CON VALUE.
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference(value = "city_from")
+    private City cityFrom;
+/*/
+  /*  @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
-    private Rate rate;
+    private Rate rate;*/
 }

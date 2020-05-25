@@ -1,6 +1,7 @@
 package utn.telefonica.app.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,26 +15,22 @@ import java.util.List;
 @Data
 @Entity
 @Table(name ="phonelines")
-public class Line {
+public class PhoneLine {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_line")
     private int id; //Entity
-    private String lineType;
+    private String lineType; //todo esto debe ser un enumerador.
     @Column(name = "line_number")
     private String lineNumber;
 
 
+    @OneToMany(mappedBy = "phoneLine")
+    private List<Bill> bills;
 
-
-    /*@OneToMany(mappedBy = "phonelines")
-    private List<Bill> bills;*/
-
-
-
-    /* @OneToMany(mappedBy = "phonelines")
-    private List<Call> calls; */
+    @OneToMany(mappedBy = "phoneLine")
+    private List<Call> callList;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
