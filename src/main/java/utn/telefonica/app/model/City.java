@@ -27,6 +27,13 @@ public class City{
     @Column(name = "line_prefix")
     private int linePrefix;
 
+    @Column(name ="cost_per_minute")
+    private float costPerMinute;
+
+    @Column(name ="price_per_minute")
+    private float pricePerMinute;
+
+
     @OneToMany(mappedBy = "city")
     private List<Customer> customers;
 
@@ -39,9 +46,6 @@ public class City{
     @OneToMany(mappedBy = "cityFrom")
     @JsonIgnore
     private List<Call> callsTo;
-
-  // @OneToMany(mappedBy = "city")
-  //private List<Rate> rate;*/
 
 
     @ManyToOne(fetch = FetchType.LAZY)
