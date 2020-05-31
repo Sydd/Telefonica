@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,11 +19,12 @@ public class Call{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_call")
     private int id;
+
     @Column(name = "call_duration")
     private float callDuration;
+
     @Column(name = "total_price")
     private float totalPrice;
-
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
@@ -38,6 +40,13 @@ public class Call{
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference(value = "city_from")
     private City cityFrom;
+
+    @Column (name = "date_call")
+    private Date callDate;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference(value = "customer")
+    private Customer customer;
 /*/
   /*  @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference

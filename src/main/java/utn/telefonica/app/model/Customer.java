@@ -43,5 +43,7 @@ public class Customer {
     @OneToMany(mappedBy = "customer")
     private List<Bill> bills;
 
+    @OneToMany(mappedBy = "customer")
+    private List<Call> calls;
 
 }

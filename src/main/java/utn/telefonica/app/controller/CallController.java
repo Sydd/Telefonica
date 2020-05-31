@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.*;
 import utn.telefonica.app.service.CallService;
 import utn.telefonica.app.model.Call;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/call")
 public class CallController {
@@ -22,8 +24,8 @@ public class CallController {
     }
 
     @PostMapping("/")
-    public void AddCall(@RequestBody Call call)
+    public void AddCall(@RequestBody List<Call> calls)
     {
-        callService.addCall(call);
+        callService.addCalls(calls);
     }
 }
