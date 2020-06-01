@@ -14,7 +14,7 @@ public interface StateRepository extends JpaRepository<State, Integer>
     List<State> findByStateName (String stateName);
 
     @Query(value = "Select s.state_name, count(c.id) as cant from cities " +
-            "join city on c.id = s.id"+
+            "join states s on c.id = s.id"+
             "group by p.id", nativeQuery = true)
     List<StateCant> getPersonCant();
 }

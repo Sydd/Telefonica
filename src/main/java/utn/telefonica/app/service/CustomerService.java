@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import utn.telefonica.app.exceptions.UserNotexistException;
 import utn.telefonica.app.exceptions.ValidationException;
 import utn.telefonica.app.model.Customer;
+import utn.telefonica.app.projections.CustomerCant;
+import utn.telefonica.app.repository.CustomerRepository;
 
 import java.util.Calendar;
 import java.util.List;
@@ -15,12 +17,12 @@ import java.util.Optional;
 import static java.util.Objects.isNull;
 
 @Service
-public class CostumerService {
+public class CustomerService {
 
     private final utn.telefonica.app.repository.CustomerRepository customerRepository;
 
     @Autowired
-    public CostumerService (utn.telefonica.app.repository.CustomerRepository customerRepository){
+    public CustomerService(utn.telefonica.app.repository.CustomerRepository customerRepository){
         this.customerRepository = customerRepository;
     }
 
@@ -52,6 +54,14 @@ public class CostumerService {
 
             return new ResponseEntity("User already exist",HttpStatus.CONFLICT);
         }
+    }
+
+
+    public List<CustomerCant> getCustomerCant()
+    {
+        List<CustomerCant> aux = null;
+        aux = customerRepository.getCustomerCant();
+        return aux;
     }
 
     public Customer getCostumerById(Integer i){

@@ -3,7 +3,8 @@ package utn.telefonica.app.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import utn.telefonica.app.service.CostumerService;
+import utn.telefonica.app.projections.CustomerCant;
+import utn.telefonica.app.service.CustomerService;
 import utn.telefonica.app.model.Customer;
 
 import java.util.List;
@@ -12,25 +13,31 @@ import java.util.List;
 @RequestMapping("/customer")
 public class CustomerController {
 
-    private final CostumerService costumerService;
+    private final CustomerService customerService;
 
     @Autowired
-    public CustomerController(CostumerService costumerService) {
-        this.costumerService = costumerService;
+    public CustomerController(CustomerService customerService) {
+        this.customerService = customerService;
     }
 
-    @GetMapping("/{id_customer}")
-    public Customer getCustomerById(@PathVariable Integer id_costumer) {
-        return costumerService.getCostumerById(id_costumer);
+    @GetMapping("/{idCustomer}")
+    public Customer getCustomerById(@PathVariable Integer idCustomer) {
+        return customerService.getCostumerById(idCustomer);
     }
 
     @PostMapping("/")
     public ResponseEntity addCustomer(@RequestBody Customer customer) {
-        return costumerService.addCostumer(customer);
+        return customerService.addCostumer(customer);
     }
 
     @GetMapping("/")
     public List<Customer> getAll(@RequestParam(required = false) String firstname){
-        return costumerService.getAllCostumers(firstname);
+        return customerService.getAllCostumers(firstname);
+    }
+
+    @GetMapping("/Cant")
+    public List<CustomerCant> getCustomerCant()
+    {
+        return customerService.getCustomerCant();
     }
 }

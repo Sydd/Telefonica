@@ -21,9 +21,10 @@ public class PhoneLine {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_line")
     private int id; //Entity
+    @Column(name = "lineType")
     private String lineType; //todo esto debe ser un enumerador.
-    @Column(name = "line_number")
-    private String lineNumber;
+    @Column(name = "lineNumber")
+    private long lineNumber;
 
 
     @OneToMany(mappedBy = "phoneLine")

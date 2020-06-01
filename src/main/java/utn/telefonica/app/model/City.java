@@ -22,9 +22,9 @@ public class City{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id_city")
     private int id;  //Entity
-    @Column(name = "city_name", unique = true)
+    @Column(name = "cityName", unique = true)
     private String cityName;
-    @Column(name = "line_prefix")
+    @Column(name = "linePrefix")
     private int linePrefix;
 
     @Column(name ="cost_per_minute")

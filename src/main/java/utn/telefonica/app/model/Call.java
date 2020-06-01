@@ -18,9 +18,9 @@ public class Call{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_call")
     private int id;
-    @Column(name = "call_duration")
+    @Column(name = "callDuration")
     private float callDuration;
-    @Column(name = "total_price")
+    @Column(name = "totalPrice")
     private float totalPrice;
 
 
@@ -29,15 +29,19 @@ public class Call{
     private PhoneLine phoneLine;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonBackReference(value = "city_to")
+    @JsonBackReference(value = "cityTo")
    // @JoinColumn(name = "id_city_to")
     private City cityTo;
 
     //SI TENES MAS DE UN JSONBACKREFERENCE TENES QUE PONERLE DISTINTO NOMBRE CON VALUE.
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonBackReference(value = "city_from")
+    @JsonBackReference(value = "cityFrom")
     private City cityFrom;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference(value = "customer")
+    private Customer customer;
 /*/
   /*  @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
