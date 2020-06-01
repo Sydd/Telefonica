@@ -11,6 +11,8 @@ import java.util.List;
 @RequestMapping("/city")
 public class CityController {
     private final CityService cityService;
+    private final servicext;
+    
 
     @Autowired
     public CityController(CityService cityService) {
