@@ -30,4 +30,6 @@ public interface CustomerRepository extends JpaRepository<Customer,Integer> {
             "join calls ca where c.id_customer = ca.customer_id_customer " +
             "group by c.id_customer",nativeQuery = true)
     List<CustomerCant> getCustomerCant();
+
+
 }
