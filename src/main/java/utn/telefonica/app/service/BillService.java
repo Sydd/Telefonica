@@ -18,8 +18,10 @@ public class BillService {
     {
         billRepository.save(bill);
     }
+
     public Bill getBillById(Integer i){
         return billRepository.findById(i).get();
     }
+
 }
 

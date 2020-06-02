@@ -45,6 +45,10 @@ public class Call{
     private Date callDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference(value = "phoneline_destiny")
+    private PhoneLine phoneLineDestiny;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference(value = "customer")
     private Customer customer;
 /*/

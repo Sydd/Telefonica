@@ -1,14 +1,14 @@
 package utn.telefonica.app.projections;
 
 import utn.telefonica.app.model.Call;
+import utn.telefonica.app.model.Customer;
 
 import java.util.List;
 
-public interface CustomerCalls {
+public interface CallTotals {
 
+    String getName();
 
-
-
-    List<Call> getCalls();
+    Call getCost();
 
 }

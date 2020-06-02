@@ -1,5 +1,6 @@
 package utn.telefonica.app.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,6 +26,8 @@ public class Customer {
     @Column(name = "last_name")
     private String lastName;
 
+    private String dni;
+
     @Column(unique = true)
     private String username;
 
@@ -44,6 +47,7 @@ public class Customer {
     private List<Bill> bills;
 
     @OneToMany(mappedBy = "customer")
+    @JsonIgnore
     private List<Call> calls;
 
 }
