@@ -8,6 +8,7 @@ import utn.telefonica.app.exceptions.UserNotexistException;
 import utn.telefonica.app.exceptions.ValidationException;
 import utn.telefonica.app.model.Customer;
 import utn.telefonica.app.projections.CustomerCalls;
+import utn.telefonica.app.projections.CustomerPriceLastCall;
 
 import java.util.Calendar;
 import java.util.List;
@@ -24,6 +25,29 @@ public class CustomerService {
     public CustomerService(utn.telefonica.app.repository.CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
     }
+
+//------------------------------->PARCIAL
+
+
+    public ResponseEntity getPriceLastCall(Integer id_customer) throws UserNotexistException{
+
+
+        CustomerPriceLastCall aux = customerRepository.getPriceLastCall(id_customer);
+
+        if (isNull(aux))
+        {
+            throw new UserNotexistException();
+        }
+
+        return  ResponseEntity.ok(aux);
+
+    }
+
+
+    //-------------------------------------------------------------------------->PARCIAL
+
+
+
 
     //Costumer loggin added. Desde el loginController se pide
     public Customer login(String username, String password) throws UserNotexistException, ValidationException {
@@ -65,6 +89,7 @@ public class CustomerService {
         return customerRepository.getTotalCalls(i);
     }
 
+
     public List<Customer> getAllCostumers(String firstName) {
         if (isNull(firstName)) {
             return customerRepository.findAll();
@@ -72,5 +97,11 @@ public class CustomerService {
 
         return customerRepository.findByFirstName(firstName);
     }
+
+    public ResponseEntity getCustomerCantCall() {
+        return ResponseEntity.ok(customerRepository.getCallCant());
+    }
+
+
 
 }
