@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import utn.telefonica.app.model.Customer;
 import utn.telefonica.app.projections.CustomerCant;
+import utn.telefonica.app.projections.CustomerExamen;
 
 import java.util.List;
 
@@ -30,6 +31,16 @@ public interface CustomerRepository extends JpaRepository<Customer,Integer> {
             "join calls ca where c.id_customer = ca.customer_id_customer " +
             "group by c.id_customer",nativeQuery = true)
     List<CustomerCant> getCustomerCant();
+
+    @Query(value = "Select c.first_name NameFirst,c.last_name NameLast,ci.city_name CityName,ca.call_duration LastCallDuration " +
+            "from Customers c " +
+            "join Cities ci " +
+            "on c.city_id_city = ci.id_city " +
+            "join Calls ca " +
+            "on c.id_customer = ca.customer_id_customer " +
+            "order by ca.call_duration desc " +
+            "limit 1 ",nativeQuery = true)
+    List<CustomerExamen> getCustomerExamen();
 
 
 }

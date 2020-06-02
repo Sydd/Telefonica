@@ -9,8 +9,10 @@ import utn.telefonica.app.exceptions.UserNotexistException;
 import utn.telefonica.app.exceptions.ValidationException;
 import utn.telefonica.app.model.Customer;
 import utn.telefonica.app.projections.CustomerCant;
+import utn.telefonica.app.projections.CustomerExamen;
 import utn.telefonica.app.repository.CustomerRepository;
 
+import javax.swing.text.html.Option;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
@@ -63,6 +65,16 @@ public class CustomerService {
         aux = customerRepository.getCustomerCant();
         return aux;
     }
+
+    //PARCIAL ->
+    public List<CustomerExamen> getCustomerExamen() throws UserNotexistException {
+        List<CustomerExamen> aux = null;
+        aux = customerRepository.getCustomerExamen();
+        Optional.ofNullable(aux).orElseThrow(() -> new UserNotexistException());
+        return aux;
+    }
+
+    // FIN PARCIAL
 
     public Customer getCostumerById(Integer i) {
         return customerRepository.findById(i).get(); // todo poner or else trhow.

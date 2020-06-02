@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import utn.telefonica.app.exceptions.UserNotexistException;
 import utn.telefonica.app.projections.CustomerCant;
+import utn.telefonica.app.projections.CustomerExamen;
 import utn.telefonica.app.service.CustomerService;
 import utn.telefonica.app.model.Customer;
 
@@ -32,15 +33,30 @@ public class CustomerController {
     }
 
     @GetMapping("/")
-    public List<Customer> getAll(@RequestParam(required = false) String firstname){
+    public List<Customer> getAll(@RequestParam(required = false) String firstname) {
         return customerService.getAllCostumers(firstname);
     }
 
     @GetMapping("/Cant")
-    public List<CustomerCant> getCustomerCant()
-    {
+    public List<CustomerCant> getCustomerCant() {
         return customerService.getCustomerCant();
     }
+
+    //PARCIAL->
+    @GetMapping("/Last")
+    public ResponseEntity getCustomerExamen()
+    {
+        ResponseEntity response;
+        try{
+            response = ResponseEntity.ok(customerService.getCustomerExamen());
+        }catch(UserNotexistException e)
+        {
+            response = ResponseEntity.badRequest().build();
+            System.out.println("No hay nada por aca..");
+        }
+        return response;
+    }
+    //
 
     //DtO
 
@@ -48,11 +64,14 @@ public class CustomerController {
     public ResponseEntity getCustomerNameLastname(@PathVariable Integer idCustomer) {
         ResponseEntity response;
         try {
-            response = ResponseEntity.ok( customerService.getNameLastname(idCustomer));
+            response = ResponseEntity.ok(customerService.getNameLastname(idCustomer));
         } catch (UserNotexistException e) {
             response = ResponseEntity.badRequest().build();
             System.out.println("No existe el usuario");
         }
         return response;
     }
+
+
+
 }
