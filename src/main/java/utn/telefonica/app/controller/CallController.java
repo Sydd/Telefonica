@@ -2,13 +2,14 @@ package utn.telefonica.app.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import utn.telefonica.app.dto.CallDto;
 import utn.telefonica.app.service.CallService;
 import utn.telefonica.app.model.Call;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/call")
+@RequestMapping("/antenna/call")
 public class CallController {
     private final CallService callService;
 
@@ -17,15 +18,10 @@ public class CallController {
         this.callService = callService;
     }
 
-    @GetMapping("/{id}")
-    public Call getCallById(@PathVariable Integer id)
-    {
-        return callService.getCallById(id);
-    }
 
     @PostMapping("/")
-    public void AddCall(@RequestBody List<Call> calls)
+    public void addCall(@RequestBody CallDto callDto)
     {
-        callService.addCalls(calls);
+        //callService.addCall(callDto);
     }
 }

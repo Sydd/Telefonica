@@ -26,28 +26,6 @@ public class CustomerService {
         this.customerRepository = customerRepository;
     }
 
-//------------------------------->PARCIAL
-
-
-    public ResponseEntity getPriceLastCall(Integer id_customer) throws UserNotexistException{
-
-
-        CustomerPriceLastCall aux = customerRepository.getPriceLastCall(id_customer);
-
-        if (isNull(aux))
-        {
-            throw new UserNotexistException();
-        }
-
-        return  ResponseEntity.ok(aux);
-
-    }
-
-
-    //-------------------------------------------------------------------------->PARCIAL
-
-
-
 
     //Costumer loggin added. Desde el loginController se pide
     public Customer login(String username, String password) throws UserNotexistException, ValidationException {

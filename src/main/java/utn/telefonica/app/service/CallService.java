@@ -3,6 +3,7 @@ package utn.telefonica.app.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ReactiveAdapterRegistry;
 import org.springframework.stereotype.Service;
+import utn.telefonica.app.dto.CallDto;
 import utn.telefonica.app.projections.CallTotals;
 import utn.telefonica.app.projections.CustomerCalls;
 import utn.telefonica.app.repository.CallRepository;
@@ -56,6 +57,7 @@ public class CallService {
     {
         return callRepository.findById(i).get();
     }
+
 
 
 }

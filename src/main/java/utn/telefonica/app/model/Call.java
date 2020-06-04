@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import utn.telefonica.app.dto.CallDto;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -48,11 +49,5 @@ public class Call{
     @JsonBackReference(value = "phoneline_destiny")
     private PhoneLine phoneLineDestiny;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonBackReference(value = "customer")
-    private Customer customer;
-/*/
-  /*  @ManyToOne(fetch = FetchType.LAZY)
-    @JsonBackReference
-    private Rate rate;*/
+
 }

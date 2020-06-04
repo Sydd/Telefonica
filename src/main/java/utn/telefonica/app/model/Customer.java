@@ -43,11 +43,4 @@ public class Customer {
     @OneToMany(mappedBy = "customer")
     private List<PhoneLine> phoneLines;
 
-    @OneToMany(mappedBy = "customer")
-    private List<Bill> bills;
-
-    @OneToMany(mappedBy = "customer")
-    @JsonIgnore
-    private List<Call> calls;
-
 }

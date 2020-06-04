@@ -30,32 +30,6 @@ public class CustomerController {
     }
 
 
-//PARCIALLLLLLLLLLLLLLLLLL ------------------------>>
-
-    @GetMapping("pricelastcall/{id_customer}")
-    public ResponseEntity getPriceLastCallById(@PathVariable Integer id_customer) {
-
-        ResponseEntity response;
-
-        try {
-
-            response = costumerService.getPriceLastCall(id_customer);
-
-        } catch (UserNotexistException E){
-
-            response = new ResponseEntity("User not exist", HttpStatus.CONFLICT);
-        }
-
-        return response;
-    }
-//-------------------------------------------------------------------------------------------->
-
-
-
-
-
-
-
 
 
     @GetMapping("/{id_customer}")
