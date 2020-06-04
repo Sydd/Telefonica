@@ -33,7 +33,6 @@ public class City{
     @Column(name ="price_per_minute")
     private float pricePerMinute;
 
-
     @OneToMany(mappedBy = "city")
     private List<Customer> customers;
 

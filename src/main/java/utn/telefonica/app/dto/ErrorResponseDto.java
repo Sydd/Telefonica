@@ -31,5 +31,4 @@ public class ErrorResponseDto {
         this.description = description;
     }
 
-
 }
