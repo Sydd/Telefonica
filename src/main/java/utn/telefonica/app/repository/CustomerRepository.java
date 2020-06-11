@@ -24,16 +24,16 @@ public interface    CustomerRepository extends JpaRepository<Customer,Integer> {
     Customer findByUsernameAndPassword(@Param("username")String username, @Param("password") String password);
 
    // @Query("SELECT c.calls from Customer c Where c.id = :id")
-    CustomerCalls getTotalCalls(Integer id);
+    //CustomerCalls getTotalCalls(Integer id);
 
 
    // @Query(value = "Select c.first_name name, count(ca.id_call) cant from customers c join calls ca where c.id_customer = ca.customer_id_customer group by (c.id_customer)",nativeQuery = true)
-    List<CustomerCallsCant> getCallCant();
+    //List<CustomerCallsCant> getCallCant();
 
 
     //pARCIALLLLLLLLLLLLLLLL
   //  @Query(value = "Select c.first_name name,c.dni dni, ca.total_price price from customers c join calls ca where c.id_customer = ca.customer_id_customer and c.id_customer = ?1 order by ca.date_call desc limit 1", nativeQuery = true)
-    CustomerPriceLastCall getPriceLastCall(@Param("id") Integer id);
+  //  CustomerPriceLastCall getPriceLastCall(@Param("id") Integer id);
     //parciaaaaaaaaaaaalllllllllllll
 
 }

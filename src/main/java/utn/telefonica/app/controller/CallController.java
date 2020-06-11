@@ -3,6 +3,7 @@ package utn.telefonica.app.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import utn.telefonica.app.dto.CallDto;
+import utn.telefonica.app.model.City;
 import utn.telefonica.app.service.CallService;
 import utn.telefonica.app.model.Call;
 
@@ -20,8 +21,10 @@ public class CallController {
 
 
     @PostMapping("/")
-    public void addCall(@RequestBody CallDto callDto)
+    public void addCall(@RequestBody Call call)
     {
-        //callService.addCall(callDto);
+        callService.addCall(call);
     }
+
+
 }

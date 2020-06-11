@@ -17,7 +17,7 @@ import java.util.List;
 import static java.util.Objects.isNull;
 
 @RestController
-@RequestMapping("/customer")
+@RequestMapping("/api/customer")
 public class CustomerController {
 
     private final CustomerService costumerService;
@@ -27,6 +27,7 @@ public class CustomerController {
     public CustomerController(CustomerService costumerService, CallService callService) {
         this.costumerService = costumerService;
         this.callService = callService;
+
     }
 
 
@@ -41,15 +42,17 @@ public class CustomerController {
 
                 response = ResponseEntity.ok(costumerService.getCostumerById(id_customer));
 
-            } else {
+            } else{
 
                 Date fromDate = Converter(from);
 
                 Date toDate = Converter(to);
+                response = null;
 
-                response = ResponseEntity.ok(callService.getTotalCallsById(id_customer, fromDate, toDate));
+              // response = ResponseEntity.ok(callService.getTotalCallsById(id_customer, fromDate, toDate)); //todo arreglar el getTotalCallsbyId
 
             }
+
         } catch ( Exception E) {
 
             response = new ResponseEntity(E.getMessage(), HttpStatus.CONFLICT);
@@ -70,11 +73,10 @@ public class CustomerController {
         return aux;
     }
 
-    @GetMapping("/cantcall")
+    /*@GetMapping("/cantcall")
     public ResponseEntity getCustomerCantCall(){
         return costumerService.getCustomerCantCall();
-    }
-
+    }*/
 
 
     @PostMapping("/")
@@ -82,8 +84,5 @@ public class CustomerController {
         return costumerService.addCustomer(customer); //todo devolver en el header el  uri del cliente creado.
     }
 
-    @GetMapping("/")
-    public List<Customer> getAll(@RequestParam(required = false) String firstname) {
-        return costumerService.getAllCostumers(firstname);
-    }
+
 }

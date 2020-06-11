@@ -35,4 +35,6 @@ public class Bill{
     @JsonBackReference(value = "phoneline_reference") //cuando tenemos mas de un jsobackrefence  hay que ponerle value.
     private PhoneLine phoneLine;
 
+
+
 }
