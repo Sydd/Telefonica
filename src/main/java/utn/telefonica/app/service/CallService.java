@@ -23,12 +23,11 @@ public class CallService {
         this.callRepository = callRepository;
     }
 
-    /*public List<CallTotals> getTotalCallsById(Integer id_customer, Date fromDate, Date toDate) {
-        System.out.println(id_customer);
-        List<CallTotals>   aux =  callRepository.getTotalCallsByDate(id_customer,fromDate,toDate);
+    public List<CallTotals> getTotalCallsById(Integer id_customer, Date fromDate, Date toDate) {
+        List<CallTotals>  aux =  callRepository.getTotalCallsByDate(id_customer,fromDate,toDate);
         return aux;
 
-    }*/
+    }
 
 
     /*public void addCall(List<Call> calls)
