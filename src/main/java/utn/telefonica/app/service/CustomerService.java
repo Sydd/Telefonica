@@ -63,8 +63,8 @@ public class CustomerService {
         return customerRepository.findById(i).orElseThrow(() -> new UserNotexistException());
     }
 
-   /* public CustomerCalls getTotalCallsById(Integer i) throws UserNotexistException {
-        return customerRepository.getTotalCalls(i);
+  /*  public CustomerCalls getTotalCallsById(Integer i,String from,String to) throws UserNotexistException {
+        return (CustomerCalls) customerRepository.getTotalCalls(i,from,to);
     }*/
 
 

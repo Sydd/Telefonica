@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface CallTotals {
 
-    String getName();
+    String getFirstname();
 
-    Call getCost();
+    float getCost();
 
 }

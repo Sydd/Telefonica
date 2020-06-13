@@ -6,6 +6,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import utn.telefonica.app.model.Call;
 import utn.telefonica.app.projections.CallTotals;
+import utn.telefonica.app.projections.CustomerCalls;
 
 import java.util.Date;
 import java.util.List;
@@ -19,6 +20,16 @@ public interface CallRepository extends JpaRepository<Call,Integer> {
 
      List<CallTotals> getTotalCallsByDate(@Param("id") Integer id, @Param("from") Date from, @Param("to") Date to); //todo hacer revisando la implementacion de controller/service
 */
+
+    @Query(value = "Select cu.firstName as name, ca.total_price as cost\n" +
+            "    from  customers as cu\n" +
+            "    join lines as l\n" +
+            "    on cu.id_customer = l.id_customer\n" +
+            "    join calls as ca\n" +
+            "    on l.id_line =  caTo.id_line_to\n" +
+            "    where cu.id = ?1 and ca.callDate between ?2 and ?3",nativeQuery = true)
+    List<CallTotals> getTotalCallsByDate(Integer id, Date from, Date to);
+
     /* QUERY
     Select cu.firstName as name, ca.total_price as cost
     from  customers as cu
@@ -28,6 +39,10 @@ public interface CallRepository extends JpaRepository<Call,Integer> {
     on l.id_line =  caTo.id_line_to
     where cu.id = :id and ca.callDate between :from and :to;
      */
+    // @Query("SELECT c.calls from Customer c Where c.id = :id")
+    //CustomerCalls getTotalCalls(Integer id);
+
+
 
 
 }
