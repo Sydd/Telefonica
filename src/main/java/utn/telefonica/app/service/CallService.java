@@ -30,7 +30,7 @@ public class CallService {
     }
 
 
-    /*public void addCall(List<Call> calls)
+    public void addCalls(List<Call> calls)
     {
 
         //RANDOMIZO FECHAS PARA QUE TENGAN AL AZAR
@@ -52,14 +52,14 @@ public class CallService {
 
         }
         callRepository.saveAll(calls);
-    }*/
+    }
 
     public Call getCallById(Integer i)
     {
         return callRepository.findById(i).get();
     }
 
-    public void addCall(Call call) {
+    public void addCalls(Call call) {
         callRepository.save(call);
     }
 

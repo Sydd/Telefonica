@@ -48,7 +48,7 @@ public class CustomerController {
 
                 Date toDate = Converter(to);
 
-               response = ResponseEntity.ok(callService.getTotalCallsById(id_customer, fromDate, toDate)); //todo arreglar el getTotalCallsbyId
+               response = ResponseEntity.ok(callService.getTotalCallsById(id_customer, fromDate, toDate));
 
             }
 
