@@ -1,6 +1,7 @@
 package utn.telefonica.app.session;
 
 import utn.telefonica.app.model.Customer;
+import utn.telefonica.app.model.enums.UserType;
 
 import java.util.Date;
 
@@ -27,6 +28,8 @@ public class Session {
     public Customer getLoggedUser() {
         return loggedUser;
     }
+
+    public boolean isEmployer(){ return loggedUser.userType == UserType.EMPLOYER;}
 
     public void setLoggedUser(Customer loggedUser) {
         this.loggedUser = loggedUser;

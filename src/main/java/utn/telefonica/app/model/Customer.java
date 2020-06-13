@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import utn.telefonica.app.model.Bill;
 import utn.telefonica.app.model.City;
 import utn.telefonica.app.model.PhoneLine;
+import utn.telefonica.app.model.enums.UserType;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -43,6 +44,8 @@ public class Customer {
     @OneToMany(mappedBy = "customer")
     private List<PhoneLine> phoneLines;
 
+    @Column(name = "user_type")
+    public UserType userType;
 
 
 }

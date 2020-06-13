@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import utn.telefonica.app.session.BackOfficeSessionFilter;
 import utn.telefonica.app.session.CallFilter;
 import utn.telefonica.app.session.SessionFilter;
 
@@ -15,6 +16,9 @@ public class Configuration {
     SessionFilter sessionFilter;
     @Autowired
     CallFilter callFilter;
+
+    @Autowired
+    BackOfficeSessionFilter backOfficeSessionFilter;
 
     @Bean
     public FilterRegistrationBean userFilter() {
@@ -31,4 +35,13 @@ public class Configuration {
         antena.addUrlPatterns("/antenna/*");
         return antena;
     }
+
+    @Bean
+    public FilterRegistrationBean backofficeFilter() {
+        FilterRegistrationBean backoffice = new FilterRegistrationBean();
+        backoffice.setFilter(backOfficeSessionFilter);
+        backoffice.addUrlPatterns("/backoffice/*");
+        return backoffice;
+    }
+
 }
