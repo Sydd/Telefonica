@@ -5,27 +5,20 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import utn.telefonica.app.model.Customer;
-import utn.telefonica.app.projections.CallTotals;
-import utn.telefonica.app.projections.CustomerCalls;
-import utn.telefonica.app.projections.CustomerCallsCant;
-import utn.telefonica.app.projections.CustomerPriceLastCall;
+import utn.telefonica.app.model.User;
 
-import java.util.Date;
 import java.util.List;
 
 @Repository
-public interface CustomerRepository extends JpaRepository<Customer,Integer> {
+public interface UserRepository extends JpaRepository<User,Integer> {
 
     //List<Costumer> findByName(String name);
 
-    List<Customer> findByFirstName(String firstName);
+    List<User> findByFirstName(String firstName);
 
-    @Query("SELECT c FROM Customer c WHERE c.username = :username AND c.password = :password")
-    Customer findByUsernameAndPassword(@Param("username")String username, @Param("password") String password);
-
-
-
+    @Query("SELECT u FROM User u WHERE u.username = :username AND u.password = :password")
+    User findByUsernameAndPassword(@Param("username")String username, @Param("password") String password);
+    
 
 
    // @Query(value = "Select c.first_name name, count(ca.id_call) cant from customers c join calls ca where c.id_customer = ca.customer_id_customer group by (c.id_customer)",nativeQuery = true)

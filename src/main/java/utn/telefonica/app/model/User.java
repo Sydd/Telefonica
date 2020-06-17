@@ -16,11 +16,11 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name ="customers")
-public class Customer {
+@Table(name ="users")
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_customer")
+    @Column(name = "id_user")
     private int id; //Entity
 
     @Column(name = "first_name")
@@ -41,7 +41,7 @@ public class Customer {
     @JsonBackReference
     private City city;
 
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "users")
     private List<PhoneLine> phoneLines;
 
     @Column(name = "user_type")

@@ -5,10 +5,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import utn.telefonica.app.exceptions.UserNotexistException;
+import utn.telefonica.app.model.User;
 import utn.telefonica.app.service.CallService;
-import utn.telefonica.app.service.CustomerService;
-import utn.telefonica.app.model.Customer;
-import utn.telefonica.app.service.LineService;
+import utn.telefonica.app.service.UserService;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -17,30 +16,32 @@ import java.util.List;
 import static java.util.Objects.isNull;
 
 @RestController
-@RequestMapping("/api/customer")
-public class CustomerController {
+@RequestMapping("/customer")
+public class UserController {
 
-    private final CustomerService costumerService;
+    private final UserService userService;
+
     private final CallService callService;
 
     @Autowired
-    public CustomerController(CustomerService costumerService, CallService callService) {
-        this.costumerService = costumerService;
+    public UserController(UserService costumerService, CallService callService) {
+        this.userService = costumerService;
         this.callService = callService;
 
     }
 
+    @GetMapping("/")
+    public ResponseEntity getCustomerById(@PathVariable Integer id_customer,
+                                          @RequestParam(required = false) String from,
+                                          @RequestParam(required = false) String to) {
 
-
-
-    @GetMapping("/{id_customer}")
-    public ResponseEntity getCustomerById(@PathVariable Integer id_customer, @RequestParam(required = false) String from, @RequestParam(required = false) String to) {
         ResponseEntity response;
+
         try {
 
             if (isNull(from) || isNull(to)) {
 
-                response = ResponseEntity.ok(costumerService.getCostumerById(id_customer));
+                response = ResponseEntity.ok(userService.getCostumerById(id_customer));
 
             } else{
 
@@ -65,6 +66,12 @@ public class CustomerController {
     }
 
 
+    @PostMapping
+    public ResponseEntity getCustomerById(@RequestBody List<User> userList) {
+
+
+            return  userService.addCustomer(userList);
+    }
 
 
     Date Converter(String toConvert) throws Exception {
@@ -77,11 +84,6 @@ public class CustomerController {
         return costumerService.getCustomerCantCall();
     }*/
 
-
-    @PostMapping("/")
-    public ResponseEntity addCustomer(@RequestBody List<Customer> customer) {
-        return costumerService.addCustomer(customer); //todo devolver en el header el  uri del cliente creado.
-    }
 
 
 }

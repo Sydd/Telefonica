@@ -1,7 +1,7 @@
 package utn.telefonica.app.session;
 
 import org.springframework.stereotype.Component;
-import utn.telefonica.app.model.Customer;
+import utn.telefonica.app.model.User;
 
 import java.util.Hashtable;
 import java.util.*;
@@ -13,7 +13,7 @@ public class SessionManager {
 
     int sesionExpiration = 60;
 
-    public String createSession(Customer user) {
+    public String createSession(User user) {
         String token = UUID.randomUUID().toString();
         sessionMap.put(token, new Session(token, user, new Date(System.currentTimeMillis())));
         return token;
@@ -45,7 +45,7 @@ public class SessionManager {
         }
     }
 
-    public Customer getCurrentUser(String token) {
+    public User getCurrentUser(String token) {
         return getSession(token).getLoggedUser();
     }
 }

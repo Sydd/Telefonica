@@ -1,6 +1,6 @@
 package utn.telefonica.app.session;
 
-import utn.telefonica.app.model.Customer;
+import utn.telefonica.app.model.User;
 import utn.telefonica.app.model.enums.UserType;
 
 import java.util.Date;
@@ -8,10 +8,10 @@ import java.util.Date;
 public class Session {
 
     String      token;
-    Customer loggedUser;
+    User        loggedUser;
     Date        lastAction;
 
-    public Session(String token, Customer loggedUser, Date lastAction) {
+    public Session(String token, User loggedUser, Date lastAction) {
         this.token = token;
         this.loggedUser = loggedUser;
         this.lastAction = lastAction;
@@ -25,13 +25,13 @@ public class Session {
         this.token = token;
     }
 
-    public Customer getLoggedUser() {
+    public User getLoggedUser() {
         return loggedUser;
     }
 
     public boolean isEmployer(){ return loggedUser.userType == UserType.EMPLOYER;}
 
-    public void setLoggedUser(Customer loggedUser) {
+    public void setLoggedUser(User loggedUser) {
         this.loggedUser = loggedUser;
     }
 

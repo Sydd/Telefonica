@@ -1,11 +1,9 @@
 package utn.telefonica.app.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import utn.telefonica.app.model.Bill;
 
 import javax.persistence.*;
 import java.util.List;
@@ -35,5 +33,5 @@ public class PhoneLine {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
-    private Customer customer;
+    private User users;
 }
