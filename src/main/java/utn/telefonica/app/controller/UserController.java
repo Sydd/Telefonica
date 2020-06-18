@@ -30,7 +30,7 @@ public class UserController {
 
     }
 
-    @GetMapping("/")
+    @GetMapping("/{id_customer}")
     public ResponseEntity getCustomerById(@PathVariable Integer id_customer,
                                           @RequestParam(required = false) String from,
                                           @RequestParam(required = false) String to) {
@@ -41,15 +41,15 @@ public class UserController {
 
             if (isNull(from) || isNull(to)) {
 
-                response = ResponseEntity.ok(userService.getCostumerById(id_customer));
+                response = ResponseEntity.ok(   userService.getCostumerById(id_customer));
 
-            } else{
+            } else {
 
                 Date fromDate = Converter(from);
 
                 Date toDate = Converter(to);
 
-               response = ResponseEntity.ok(callService.getTotalCallsById(id_customer, fromDate, toDate));
+               response = ResponseEntity.ok(    callService.getTotalCallsById(id_customer, fromDate, toDate));
 
             }
 
@@ -68,8 +68,6 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity getCustomerById(@RequestBody List<User> userList) {
-
-
             return  userService.addCustomer(userList);
     }
 
@@ -78,12 +76,6 @@ public class UserController {
         Date aux = new SimpleDateFormat("dd-MM-yyyy").parse(toConvert);
         return aux;
     }
-
-    /*@GetMapping("/cantcall")
-    public ResponseEntity getCustomerCantCall(){
-        return costumerService.getCustomerCantCall();
-    }*/
-
 
 
 }

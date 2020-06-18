@@ -21,9 +21,8 @@ public class PhoneLine {
     private int id; //Entity
     @Column(name = "lineType")
     private String lineType; //todo esto debe ser un enumerador.
-    @Column(name = "lineNumber")
+    @Column(name = "lineNumber",unique = true)
     private long lineNumber;
-
 
     @OneToMany(mappedBy = "phoneLine")
     private List<Bill> bills;
@@ -33,5 +32,5 @@ public class PhoneLine {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
-    private User users;
+    private User user;
 }

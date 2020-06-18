@@ -21,13 +21,13 @@ public interface CallRepository extends JpaRepository<Call,Integer> {
      List<CallTotals> getTotalCallsByDate(@Param("id") Integer id, @Param("from") Date from, @Param("to") Date to); //todo hacer revisando la implementacion de controller/service
 */
 
-    @Query(value = "Select cu.first_name as name, ca.total_price as cost\n" +
-            "    from  customers as cu\n" +
+    @Query(value = "Select cu.first_name as Firstname, ca.total_price as cost\n" +
+            "    from  users as cu\n" +
             "    join phonelines as l\n" +
-            "    on cu.id_customer = l.customer_id_customer\n" +
+            "    on cu.id_user = l.user_id_user\n" +
             "    join calls as ca\n" +
             "    on l.id_line =  ca.phone_line_id_line\n" +
-            "    where cu.id_customer = ?1 and ca.date_call between ?2 and ?3",nativeQuery = true)
+            "    where cu.id_user = ?1 and ca.date_call between ?2 and ?3", nativeQuery = true)
     List<CallTotals> getTotalCallsByDate(Integer id, Date from, Date to);
 
     /* QUERY

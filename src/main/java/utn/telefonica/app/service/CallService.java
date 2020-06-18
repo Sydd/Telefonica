@@ -26,9 +26,12 @@ public class CallService {
     public List<CallTotals> getTotalCallsById(Integer id_customer, Date fromDate, Date toDate) {
         List<CallTotals>  aux =  callRepository.getTotalCallsByDate(id_customer,fromDate,toDate);
         return aux;
-
     }
 
+
+    public void addCall(CallDto call){
+
+    }
 
     public void addCalls(List<Call> calls)
     {
