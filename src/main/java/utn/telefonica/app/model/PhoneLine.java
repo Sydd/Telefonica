@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import utn.telefonica.app.model.enums.PhonelineType;
 
 import javax.persistence.*;
 import java.util.List;
@@ -19,10 +20,12 @@ public class PhoneLine {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_line")
     private int id; //Entity
-    @Column(name = "lineType")
-    private String lineType; //todo esto debe ser un enumerador.
-    @Column(name = "lineNumber",unique = true)
-    private long lineNumber;
+
+    @Column(name = "line_type")
+    private PhonelineType lineType;
+
+    @Column(name = "line_number",unique = true)
+    private String lineNumber;
 
     @OneToMany(mappedBy = "phoneLine")
     private List<Bill> bills;

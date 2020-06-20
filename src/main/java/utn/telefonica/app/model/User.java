@@ -3,6 +3,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 import utn.telefonica.app.model.Bill;
 import utn.telefonica.app.model.City;
 import utn.telefonica.app.model.PhoneLine;
@@ -23,15 +24,16 @@ public class User {
     @Column(name = "id_user")
     private int id; //Entity
 
-    @Column(name = "first_name")
+    @Column(name = "first_name", nullable = false)
     private String firstName;
 
-    @Column(name = "last_name")
+    @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String username;
 
+    @Column(nullable = false)
     private String password;
 
     @Column(name = "created_at")
@@ -47,5 +49,6 @@ public class User {
     @Column(name = "user_type")
     public UserType userType;
 
-
+    @Column(unique = true, nullable = false)
+    public String dni;
 }

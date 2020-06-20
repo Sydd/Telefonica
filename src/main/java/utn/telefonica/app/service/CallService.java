@@ -2,12 +2,16 @@ package utn.telefonica.app.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ReactiveAdapterRegistry;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import utn.telefonica.app.dto.CallDto;
+import utn.telefonica.app.projections.BillsByCustomer;
 import utn.telefonica.app.projections.CallTotals;
 import utn.telefonica.app.projections.CustomerCalls;
 import utn.telefonica.app.repository.CallRepository;
 import utn.telefonica.app.model.Call;
+import utn.telefonica.app.utils.PhoneUtils;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -29,10 +33,25 @@ public class CallService {
     }
 
 
-    public void addCall(CallDto call){
+    //METODO EXPUESTO PARA LA ANTENNA.
+    public ResponseEntity addCall(CallDto call){
+        try {
 
+            return ResponseEntity.ok(
+                    callRepository.addCall(
+                            call.getOriginNumber(),
+                            call.getDestinyNumber(),
+                            Integer.getInteger(call.getCallDuration()),
+                            PhoneUtils.dateConverter(call.getCallDate())));
+
+        } catch ( Exception e) { //todo cambiar tipo de exception.
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
     }
 
+
+    //ESTE METODO SOLO SE USA PARA GENERAR LLAMADAS RANDOM PARA TESTEAR.
+    //NO ES USADO POR EL SISTEMA Y NO VA A QUEDAR EXPUESTO.
     public void addCalls(List<Call> calls)
     {
 

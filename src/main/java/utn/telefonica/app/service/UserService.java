@@ -1,18 +1,20 @@
 package utn.telefonica.app.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import utn.telefonica.app.exceptions.FieldIsNullException;
 import utn.telefonica.app.exceptions.UserNotexistException;
 import utn.telefonica.app.exceptions.ValidationException;
 import utn.telefonica.app.model.User;
+import utn.telefonica.app.model.enums.UserType;
 import utn.telefonica.app.repository.UserRepository;
-import utn.telefonica.app.utils.UriUtils;
+import utn.telefonica.app.utils.PhoneUtils;
 
-import java.net.URI;
+import javax.persistence.NonUniqueResultException;
+
 import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
@@ -40,11 +42,13 @@ public class UserService {
     }
 
 
+    //ONLY FOR TESTING.
+
     public ResponseEntity addCustomer(List<User> userList) {
         try {
 
 
-            for (User user:userList) {
+            for (User user : userList) {
 
                 user.setCreatedAt(Calendar.getInstance().getTime());
 
@@ -77,6 +81,45 @@ public class UserService {
         return ResponseEntity.ok(userRepository.findByFirstName(firstName));
     }
 
+    public ResponseEntity addUser(User user) {
+
+        ResponseEntity response;
+
+        try {
+
+            if (isNull(user.getUsername()) ||
+                    isNull(user.getDni()) ||
+                    isNull(user.getFirstName()) ||
+                    isNull(user.getLastName()) ||
+                    isNull(user.getPassword())) {
+                throw new FieldIsNullException();
+            }
+
+            user.setCreatedAt(Calendar.getInstance().getTime());
+
+            if (isNull(user.getUserType())) {
+                user.setUserType(UserType.CUSTOMER);
+            }
+            user = userRepository.save(user);
+
+            return ResponseEntity.created(PhoneUtils.getLocation(user)).build();
+
+        } catch (NonUniqueResultException E) {
+
+            return new ResponseEntity("User already exist", HttpStatus.CONFLICT);
+
+        } catch (DataIntegrityViolationException E) {
+
+            return new ResponseEntity("ERROR SQL " + E.getMostSpecificCause(), HttpStatus.CONFLICT); //TODO AVERIGUAR COMO
+
+        } catch (FieldIsNullException E) {
+
+            return new ResponseEntity("YOU CAN NOT HAVE NULL CAMPS.", HttpStatus.BAD_REQUEST);
+        } catch (Exception E) {
+
+            return new ResponseEntity(E.getMessage() + E.getClass().toString(), HttpStatus.CONFLICT);
+        }
+    }
 
 
 }

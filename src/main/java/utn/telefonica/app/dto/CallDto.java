@@ -11,8 +11,8 @@ public class CallDto {
 
     private String destinyNumber;
 
-    private int callDuration;
+    private String callDuration;
 
-    private Date callDate;
+    private String callDate;
 
 }

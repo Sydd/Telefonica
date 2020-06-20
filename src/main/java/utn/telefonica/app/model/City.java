@@ -25,11 +25,11 @@ public class City{
     @Column(name = "linePrefix")
     private int linePrefix;
 
-    @Column(name ="cost_per_minute")
-    private float costPerMinute;
+    @Column(name ="cost_per_second")
+    private int costPerSecond;
 
-    @Column(name ="price_per_minute")
-    private float pricePerMinute;
+    @Column(name ="price_per_second")
+    private int pricePerSecond;
 
     @OneToMany(mappedBy = "city")
     private List<User> userList;

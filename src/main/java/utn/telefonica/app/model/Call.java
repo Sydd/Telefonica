@@ -34,10 +34,7 @@ public class Call{
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference(value = "city_to")
-   // @JoinColumn(name = "id_city_to")
     private City cityTo;
-
-    //SI TENES MAS DE UN JSONBACKREFERENCE TENES QUE PONERLE DISTINTO NOMBRE CON VALUE.
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference(value = "city_from")
