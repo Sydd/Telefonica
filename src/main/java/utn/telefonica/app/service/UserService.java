@@ -10,6 +10,7 @@ import utn.telefonica.app.exceptions.UserNotexistException;
 import utn.telefonica.app.exceptions.ValidationException;
 import utn.telefonica.app.model.User;
 import utn.telefonica.app.model.enums.UserType;
+import utn.telefonica.app.projections.UserDto;
 import utn.telefonica.app.repository.UserRepository;
 import utn.telefonica.app.utils.PhoneUtils;
 
@@ -42,50 +43,40 @@ public class UserService {
     }
 
 
-    //ONLY FOR TESTING.
-
-    public ResponseEntity addCustomer(List<User> userList) {
-        try {
-
-
-            for (User user : userList) {
-
-                user.setCreatedAt(Calendar.getInstance().getTime());
-
-                userRepository.save(user);
-
-                System.out.println("New user: " + user.getUsername());
-
-            }
-
-            return ResponseEntity.ok(HttpStatus.CREATED); //todo devolver customer nuevo creado en el header.
-
-        } catch (Exception E) {
-
-            System.out.println("Tried to created a user with an used username.");
-
-            return new ResponseEntity("User already exist", HttpStatus.CONFLICT);
-        }
-    }
-
     public User getCostumerById(Integer i) throws UserNotexistException {
         return userRepository.findById(i).orElseThrow(() -> new UserNotexistException());
     }
 
 
-    public ResponseEntity getAllCostumers(String firstName) {
-        if (isNull(firstName)) {
-            return ResponseEntity.ok(userRepository.findAll());
-        }
+    public List<UserDto> getAllCostumers(String firstName, String dni) {
 
-        return ResponseEntity.ok(userRepository.findByFirstName(firstName));
+        if (!isNull(firstName)){
+            return userRepository.findByFirstNameStartsWith(firstName);
+        }
+        if (!isNull(dni)) {
+            return userRepository.findByDni(dni);
+        }
+        return userRepository.findByFirstNameStartsWith("");
     }
 
-    public ResponseEntity addUser(User user) {
+    public User updateUser(User user) throws UserNotexistException{
 
-        ResponseEntity response;
+            User userAux = userRepository.findById(user.getId()).orElseThrow(() -> new UserNotexistException());
 
-        try {
+            userAux.setCity(user.getCity());
+
+            userAux.setLastName(user.getLastName());
+
+            userAux.setFirstName(user.getFirstName());
+
+            userAux.setDni(user.getDni());
+
+            userAux.setLastName(user.getLastName());
+
+            return userRepository.save(userAux);
+    }
+
+    public User addUser(User user) throws FieldIsNullException{
 
             if (isNull(user.getUsername()) ||
                     isNull(user.getDni()) ||
@@ -100,25 +91,8 @@ public class UserService {
             if (isNull(user.getUserType())) {
                 user.setUserType(UserType.CUSTOMER);
             }
-            user = userRepository.save(user);
 
-            return ResponseEntity.created(PhoneUtils.getLocation(user)).build();
-
-        } catch (NonUniqueResultException E) {
-
-            return new ResponseEntity("User already exist", HttpStatus.CONFLICT);
-
-        } catch (DataIntegrityViolationException E) {
-
-            return new ResponseEntity("ERROR SQL " + E.getMostSpecificCause(), HttpStatus.CONFLICT); //TODO AVERIGUAR COMO
-
-        } catch (FieldIsNullException E) {
-
-            return new ResponseEntity("YOU CAN NOT HAVE NULL CAMPS.", HttpStatus.BAD_REQUEST);
-        } catch (Exception E) {
-
-            return new ResponseEntity(E.getMessage() + E.getClass().toString(), HttpStatus.CONFLICT);
-        }
+            return userRepository.save(user);
     }
 
 

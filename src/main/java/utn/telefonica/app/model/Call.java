@@ -23,10 +23,14 @@ public class Call{
     private int id;
 
     @Column(name = "call_duration")
-    private float callDuration;
+    private int callDuration;
 
     @Column(name = "total_price")
     private float totalPrice;
+
+    @Column(name = "total_cost")
+    private float totalCost;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
@@ -46,6 +50,10 @@ public class Call{
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference(value = "phoneline_destiny")
     private PhoneLine phoneLineDestiny;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference(value="call_bill")
+    private Bill bill;
 
 
 }

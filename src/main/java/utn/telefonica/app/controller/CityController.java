@@ -17,15 +17,6 @@ public class CityController {
         this.cityService = cityService;
     }
 
-    @GetMapping("/{id}")
-    public City getCostumerById(@PathVariable Integer id) {
-        return cityService.getCityById(id);
-    }
-
-    @PostMapping("/")
-    public void AddCity(@RequestBody City city) {
-        cityService.addCity(city);
-    }
 
     @GetMapping("/")
     public List<City> getAll(@RequestParam(required = false) String cityName){

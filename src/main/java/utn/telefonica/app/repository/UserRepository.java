@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import utn.telefonica.app.model.User;
+import utn.telefonica.app.projections.UserDto;
 
 import java.util.List;
 
@@ -14,11 +15,12 @@ public interface UserRepository extends JpaRepository<User,Integer> {
 
     //List<Costumer> findByName(String name);
 
-    List<User> findByFirstName(String firstName);
+    List<UserDto> findByFirstNameStartsWith(String firstName);
+
+    List<UserDto> findByDni(String dni);
 
     @Query("SELECT u FROM User u WHERE u.username = :username AND u.password = password(:password)")
     User findByUsernameAndPassword(@Param("username")String username, @Param("password") String password);
-    
 
 
    // @Query(value = "Select c.first_name name, count(ca.id_call) cant from customers c join calls ca where c.id_customer = ca.customer_id_customer group by (c.id_customer)",nativeQuery = true)

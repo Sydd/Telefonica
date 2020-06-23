@@ -1,90 +1,68 @@
 package utn.telefonica.app.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.ReactiveAdapterRegistry;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import utn.telefonica.app.dto.CallDto;
-import utn.telefonica.app.projections.BillsByCustomer;
+import utn.telefonica.app.exceptions.InvalidSessionException;
+import utn.telefonica.app.exceptions.UserNotexistException;
+import utn.telefonica.app.exceptions.ValidationException;
 import utn.telefonica.app.projections.CallTotals;
-import utn.telefonica.app.projections.CustomerCalls;
+import utn.telefonica.app.projections.CustomerCallsCant;
 import utn.telefonica.app.repository.CallRepository;
 import utn.telefonica.app.model.Call;
+import utn.telefonica.app.session.Session;
+import utn.telefonica.app.session.SessionManager;
 import utn.telefonica.app.utils.PhoneUtils;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
+import java.text.ParseException;
+import java.util.*;
 
 @Service
 public class CallService {
     private final CallRepository callRepository;
+    private final SessionManager sessionManager;
+
 
     @Autowired
-    public CallService(CallRepository callRepository) {
+    public CallService(CallRepository callRepository, SessionManager sessionManager) {
         this.callRepository = callRepository;
+        this.sessionManager = sessionManager;
     }
 
+
     public List<CallTotals> getTotalCallsById(Integer id_customer, Date fromDate, Date toDate) {
-        List<CallTotals>  aux =  callRepository.getTotalCallsByDate(id_customer,fromDate,toDate);
-        return aux;
+        return callRepository.getTotalCallsByDate(id_customer, fromDate, toDate);
     }
 
 
     //METODO EXPUESTO PARA LA ANTENNA.
-    public ResponseEntity addCall(CallDto call){
-        try {
+    public Call addCall(CallDto call) throws ParseException {
 
-            return ResponseEntity.ok(
-                    callRepository.addCall(
-                            call.getOriginNumber(),
-                            call.getDestinyNumber(),
-                            Integer.getInteger(call.getCallDuration()),
-                            PhoneUtils.dateConverter(call.getCallDate())));
+        return callRepository.addCall(
+                call.getOriginNumber(),
+                call.getDestinyNumber(),
+                Integer.getInteger(call.getCallDuration()),
+                PhoneUtils.dateConverter(call.getCallDate()));
 
-        } catch ( Exception e) { //todo cambiar tipo de exception.
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
-        }
+
+    }
+
+    public Call getCallById(Integer i) throws UserNotexistException{
+        return callRepository.findById(i).orElseThrow(()-> new UserNotexistException());
     }
 
 
-    //ESTE METODO SOLO SE USA PARA GENERAR LLAMADAS RANDOM PARA TESTEAR.
-    //NO ES USADO POR EL SISTEMA Y NO VA A QUEDAR EXPUESTO.
-    public void addCalls(List<Call> calls)
-    {
+    public List<CustomerCallsCant> getMostCalledNumber(String token) throws InvalidSessionException {
 
-        //RANDOMIZO FECHAS PARA QUE TENGAN AL AZAR
+            Session actualSession = Optional.
+                    ofNullable(sessionManager.getSession(token)).
+                    orElseThrow(() -> new InvalidSessionException());
 
-        Random rn = new Random();
+            return callRepository.getTopCalls(actualSession.getLoggedUser().getId());
 
 
-        for(Call call:calls) {
-
-            int answer = rn.nextInt(10) - 10; // randomizo un numero entre 0 y -10
-
-            Calendar calendar = Calendar.getInstance();
-
-            calendar.add(Calendar.MONTH, answer);
-
-            call.setTotalPrice(answer);
-
-            call.setCallDate(calendar.getTime());
-
-        }
-        callRepository.saveAll(calls);
     }
-
-    public Call getCallById(Integer i)
-    {
-        return callRepository.findById(i).get();
-    }
-
-    public void addCalls(Call call) {
-        callRepository.save(call);
-    }
-
-
 }
 

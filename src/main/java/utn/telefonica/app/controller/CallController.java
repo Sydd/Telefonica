@@ -1,13 +1,16 @@
 package utn.telefonica.app.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import utn.telefonica.app.dto.CallDto;
+import utn.telefonica.app.exceptions.InvalidSessionException;
 import utn.telefonica.app.service.CallService;
-import utn.telefonica.app.model.Call;
+import utn.telefonica.app.utils.PhoneUtils;
 
-import java.util.List;
+import java.text.ParseException;
+
 
 @RestController
 @RequestMapping("/")
@@ -20,19 +23,23 @@ public class CallController {
     }
 
 
-    //ONLY FOR TESTING.
-
-    @PostMapping("/testing/")
-    public void addCalls(@RequestBody List<Call> calls)
-    {
-        callService.addCalls(calls);
-    }
-
-    @PostMapping("/antenna/call")
+    @PostMapping("antenna/call/")
     public ResponseEntity addCall(@RequestBody CallDto call)
     {
-        return callService.addCall(call);
+        try {
+            return new ResponseEntity(callService.addCall(call), HttpStatus.CREATED);
+        } catch (ParseException P) {
+            return new ResponseEntity("Invalid Date",HttpStatus.BAD_REQUEST);
+        }
     }
 
+    @GetMapping("api/call/")
+    public ResponseEntity getMostCalledNumber(@RequestHeader("Authorization") String token){
+        try {
+            return ResponseEntity.ok(callService.getMostCalledNumber(token));
+        } catch (InvalidSessionException E){
+            return new ResponseEntity(HttpStatus.FORBIDDEN);
+        }
+    }
 
 }

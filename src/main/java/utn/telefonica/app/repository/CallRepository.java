@@ -9,6 +9,7 @@ import utn.telefonica.app.dto.CallDto;
 import utn.telefonica.app.model.Call;
 import utn.telefonica.app.projections.CallTotals;
 import utn.telefonica.app.projections.CustomerCalls;
+import utn.telefonica.app.projections.CustomerCallsCant;
 
 import java.util.Date;
 import java.util.List;
@@ -34,6 +35,20 @@ public interface CallRepository extends JpaRepository<Call,Integer> {
 
     @Query(value= "insert into calls(phone_line_id_line, phone_line_destiny_id_line, call_duration, date_call) values (?1,?2,?3,?4) ", nativeQuery = true)
     Call addCall(String originNumber, String destinyNumber, Integer duration, Date date);
+
+
+    @Query(value = "select  ph.line_number as Numero, count(c.phone_line_destiny_id_line) as Cant\n" +
+            "\tfrom calls as c\n" +
+            "\tjoin phonelines as ph\n" +
+            "\ton c.phone_line_id_line = ph.id_line or c.phone_line_destiny_id_line = ph.id_line\n" +
+            "\tjoin users as u\n" +
+            "\ton u.id_user = id_usuario\n" +
+            "\tgroup by ph.line_number\n" +
+            "\torder by cant desc\n" +
+            "\tlimit 10\n",nativeQuery = true)
+    List<CustomerCallsCant> getTopCalls(int idNumber);
+
+
     /* QUERY
     Select cu.firstName as name, ca.total_price as cost
     from  customers as cu

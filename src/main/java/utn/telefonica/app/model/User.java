@@ -46,6 +46,9 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<PhoneLine> phoneLines;
 
+    @OneToMany(mappedBy = "user")
+    private List<Bill> bills;
+
     @Column(name = "user_type")
     public UserType userType;
 

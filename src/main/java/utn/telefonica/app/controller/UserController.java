@@ -1,9 +1,15 @@
 package utn.telefonica.app.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import utn.telefonica.app.exceptions.FieldIsNullException;
 import utn.telefonica.app.exceptions.InvalidLoginException;
 import utn.telefonica.app.exceptions.InvalidSessionException;
 import utn.telefonica.app.exceptions.UserNotexistException;
@@ -14,6 +20,7 @@ import utn.telefonica.app.session.Session;
 import utn.telefonica.app.session.SessionManager;
 import utn.telefonica.app.utils.PhoneUtils;
 
+import javax.persistence.NonUniqueResultException;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -31,15 +38,19 @@ public class UserController {
 
     @Autowired
     public UserController(UserService costumerService, CallService callService) {
+
         this.userService = costumerService;
 
         this.callService = callService;
     }
 
+    @GetMapping("customer/")
+    public ResponseEntity getAllCostumer(@RequestParam(required = false) String firstName,
+                                         @RequestParam(required = false) String dni) {
+        return ResponseEntity.ok(userService.getAllCostumers(firstName,dni));
+    }
 
-
-
-    @GetMapping("/{id_customer}")
+    @GetMapping("customer/{id_customer}")
     public ResponseEntity getCustomerById(@PathVariable Integer id_customer,
                                           @RequestParam(required = false) String from,
                                           @RequestParam(required = false) String to) {
@@ -47,6 +58,7 @@ public class UserController {
         ResponseEntity response;
 
         try {
+
 
             if (isNull(from) || isNull(to)) {
 
@@ -68,23 +80,47 @@ public class UserController {
 
         } catch (UserNotexistException E) {
 
-            response = new ResponseEntity("User not exist", HttpStatus.CONFLICT);
+            response = new ResponseEntity("User not exist", HttpStatus.NOT_FOUND);
         }
 
         return response;
     }
 
 
-    //ONLY FOR TESTING
-    @PostMapping("/testing")
-    public ResponseEntity getCustomerById(@RequestBody List<User> userList) {
-        return userService.addCustomer(userList);
+    @PostMapping("customer/")
+    @ApiOperation(value="Creates a new user.")
+    @ApiResponses( value = {
+            @ApiResponse(code = 201, message = "User created."),
+            @ApiResponse(code = 409, message = "You tried to create an user with a duplicated username"),
+            @ApiResponse(code = 400, message = "You tried to create an user  with null fields or bad json."  )})
+    public ResponseEntity addUser(@RequestBody User user) {
+        try {
+
+            return ResponseEntity.created(PhoneUtils.getLocation(userService.addUser(user))).build();
+
+        } catch (NonUniqueResultException E) {
+
+            return new ResponseEntity("User already exist", HttpStatus.CONFLICT);
+
+        } catch (DataIntegrityViolationException E) {
+
+            return new ResponseEntity("ERROR SQL " + E.getMostSpecificCause(), HttpStatus.CONFLICT); //TODO AVERIGUAR COMO
+
+        } catch (FieldIsNullException E) {
+
+            return new ResponseEntity("YOU CAN NOT HAVE NULL CAMPS.", HttpStatus.BAD_REQUEST);
+
+        }
     }
 
-    //Real
-    @PostMapping("/backoffice/customer/")
-    public ResponseEntity addUser(@RequestBody User user) {
-        return userService.addUser(user);
+
+    @PutMapping("customer/")
+    public ResponseEntity updateUser(@RequestBody User user) {
+        try {
+            return ResponseEntity.ok(userService.updateUser(user));
+        } catch (UserNotexistException E) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 

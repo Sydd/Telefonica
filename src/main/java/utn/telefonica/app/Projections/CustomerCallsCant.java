@@ -4,7 +4,5 @@ public interface CustomerCallsCant {
 
     String getName();
 
-   // String getMostCalled();
-
     int getCant();
 }
