@@ -8,4 +8,11 @@ public interface CustomerPriceLastCall {
 
     String getPrice();
 
+    String setPrice(String price);
+
+    String setDni(String dni);
+
+    String setName(String name);
+
+
 }
