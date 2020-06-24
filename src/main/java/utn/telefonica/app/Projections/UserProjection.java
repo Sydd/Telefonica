@@ -7,7 +7,11 @@ import utn.telefonica.app.utils.PhoneUtils;
 
 import java.util.List;
 
-public interface UserDto {
+public interface UserProjection {
+
+    int getId();
+
+    void setId(int id);
 
     String getFirstName();
 

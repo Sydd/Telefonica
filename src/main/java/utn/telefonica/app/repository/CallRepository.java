@@ -2,13 +2,9 @@ package utn.telefonica.app.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.jpa.repository.QueryHints;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import utn.telefonica.app.dto.CallDto;
 import utn.telefonica.app.model.Call;
 import utn.telefonica.app.projections.CallTotals;
-import utn.telefonica.app.projections.CustomerCalls;
 import utn.telefonica.app.projections.CustomerCallsCant;
 
 import java.util.Date;

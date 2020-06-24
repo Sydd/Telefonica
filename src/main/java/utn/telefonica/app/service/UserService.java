@@ -1,20 +1,14 @@
 package utn.telefonica.app.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import utn.telefonica.app.exceptions.FieldIsNullException;
 import utn.telefonica.app.exceptions.UserNotexistException;
 import utn.telefonica.app.exceptions.ValidationException;
 import utn.telefonica.app.model.User;
 import utn.telefonica.app.model.enums.UserType;
-import utn.telefonica.app.projections.UserDto;
+import utn.telefonica.app.projections.UserProjection;
 import utn.telefonica.app.repository.UserRepository;
-import utn.telefonica.app.utils.PhoneUtils;
-
-import javax.persistence.NonUniqueResultException;
 
 import java.util.Calendar;
 import java.util.List;
@@ -48,7 +42,11 @@ public class UserService {
     }
 
 
-    public List<UserDto> getAllCostumers(String firstName, String dni) {
+    public List<UserProjection> getAllCostumers(String firstName, String dni) {
+
+        if(!isNull(firstName) && !isNull(dni) ) {
+            return userRepository.findByFirstNameStartsWithAndDniStartsWith(firstName,dni);
+        }
 
         if (!isNull(firstName)){
             return userRepository.findByFirstNameStartsWith(firstName);

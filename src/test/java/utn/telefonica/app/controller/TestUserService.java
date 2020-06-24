@@ -7,6 +7,7 @@ import utn.telefonica.app.exceptions.UserNotexistException;
 import utn.telefonica.app.exceptions.ValidationException;
 import utn.telefonica.app.model.User;
 import utn.telefonica.app.model.enums.UserType;
+import utn.telefonica.app.projections.UserProjection;
 import utn.telefonica.app.repository.UserRepository;
 import utn.telefonica.app.service.UserService;
 import utn.telefonica.app.testutils.TestUtils;
@@ -84,6 +85,7 @@ public class TestUserService {
     @Test
     public void testLoginOk() throws UserNotexistException, ValidationException {
         User u = TestUtils.getTestingCustomer();
+
         when(userRepository.findByUsernameAndPassword("username", "pass")).thenReturn(u);
 
         User aux = userService.login("username", "pass");
@@ -104,35 +106,35 @@ public class TestUserService {
     public void testLoginValidation() throws UserNotexistException, ValidationException {
         User u = TestUtils.getTestingCustomer();
 
-        when(userRepository.findByUsernameAndPassword(null, "asd")).thenReturn(null);
+        when(userRepository.findByUsernameAndPassword(null, "asd")).thenReturn(u);
 
         User aux = userService.login(null, "pass");
 
         assertEquals(aux.getId(), u.getId());
     }
 
-/*
+
     @Test
     public void testGetCostumerById() throws UserNotexistException {
 
+        User u = TestUtils.getTestingCustomer();
 
         when(userRepository.findById(1)).thenReturn(Optional.ofNullable(u));
 
         User aux = userService.getCostumerById(1);
+
         assertEquals(aux.getId(), u.getId());
     }
 
 
     @Test
-    public void testGetAllCostumersNoName(){
+    public void testGetAllCostumersNoNameNoDni(){
 
-        List<User> userList = new ArrayList<User>();
+        List<UserProjection> userList = TestUtils.getListUserProjection();
 
-        userList.add(TestUtils.getTestingCustomer());
+        when(userRepository.findByFirstNameStartsWith("")).thenReturn(userList);
 
-        when(userRepository.findAll()).thenReturn(userList);
-
-        List<User> toTest = userService.getAllCostumers(null);
+        List<UserProjection> toTest = userService.getAllCostumers(null,null);
 
         assertEquals(toTest.get(0).getId(), userList.get(0).getId());
     }
@@ -141,15 +143,13 @@ public class TestUserService {
     @Test
     public void testGetAllCostumersWithName(){
 
-        List<User> userList = new ArrayList<User>();
-        userList.add(TestUtils.getTestingCustomer());
+        List<UserProjection> userList = TestUtils.getListUserProjection();
 
-        when(userRepository.findByFirstName("randi")).thenReturn(userList);
+        when(userRepository.findByFirstNameStartsWith("randi")).thenReturn(userList);
 
-        List<User> toTest = userService.getAllCostumers("randi");
+        List<UserProjection>  toTest = userService.getAllCostumers("randi",null);
 
         assertEquals(toTest.get(0).getId(), userList.get(0).getId());
     }
-*/
 
 }

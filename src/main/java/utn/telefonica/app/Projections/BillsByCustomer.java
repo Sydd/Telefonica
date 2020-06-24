@@ -9,4 +9,12 @@ public interface BillsByCustomer {
     int getTotalCalls();
 
     boolean getIsPayed();
+
+    void setTotalPrice(String totalPrice);
+
+    void setCreatedAt(String createdAt);
+
+    void setTotalCalls(int totalCalls);
+
+    void setIsPayed(boolean isPayed);
 }

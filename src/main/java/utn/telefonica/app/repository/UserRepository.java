@@ -6,18 +6,19 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import utn.telefonica.app.model.User;
-import utn.telefonica.app.projections.UserDto;
+import utn.telefonica.app.projections.UserProjection;
 
 import java.util.List;
 
 @Repository
 public interface UserRepository extends JpaRepository<User,Integer> {
 
-    //List<Costumer> findByName(String name);
 
-    List<UserDto> findByFirstNameStartsWith(String firstName);
+    List<UserProjection> findByFirstNameStartsWith(String firstName);
 
-    List<UserDto> findByDni(String dni);
+    List<UserProjection> findByFirstNameStartsWithAndDniStartsWith(String firstName, String dni);
+
+    List<UserProjection> findByDni(String dni);
 
     @Query("SELECT u FROM User u WHERE u.username = :username AND u.password = password(:password)")
     User findByUsernameAndPassword(@Param("username")String username, @Param("password") String password);

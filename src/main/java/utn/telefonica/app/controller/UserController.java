@@ -62,7 +62,7 @@ public class UserController {
 
             if (isNull(from) || isNull(to)) {
 
-                response = ResponseEntity.ok(userService.getCostumerById(id_customer));
+                response = ResponseEntity.ok(userService.getCostumerById(id_customer)); //todo cambiar esto por la proyection.
 
             } else {
 
