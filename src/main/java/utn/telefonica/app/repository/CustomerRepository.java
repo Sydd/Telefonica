@@ -5,9 +5,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import utn.telefonica.app.Projections.CustomerExamen;
 import utn.telefonica.app.model.Customer;
 import utn.telefonica.app.projections.CustomerCant;
-import utn.telefonica.app.projections.CustomerExamen;
 
 import java.util.List;
 

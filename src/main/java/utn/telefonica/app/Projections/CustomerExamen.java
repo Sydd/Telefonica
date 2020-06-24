@@ -1,4 +1,4 @@
-package utn.telefonica.app.projections;
+package utn.telefonica.app.Projections;
 
 public interface CustomerExamen {
 

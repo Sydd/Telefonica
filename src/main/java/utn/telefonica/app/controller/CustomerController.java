@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import utn.telefonica.app.exceptions.UserNotexistException;
 import utn.telefonica.app.projections.CustomerCant;
-import utn.telefonica.app.projections.CustomerExamen;
+import utn.telefonica.app.Projections.CustomerExamen;
 import utn.telefonica.app.service.CustomerService;
 import utn.telefonica.app.model.Customer;
 

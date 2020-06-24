@@ -9,7 +9,7 @@ import utn.telefonica.app.exceptions.UserNotexistException;
 import utn.telefonica.app.exceptions.ValidationException;
 import utn.telefonica.app.model.Customer;
 import utn.telefonica.app.projections.CustomerCant;
-import utn.telefonica.app.projections.CustomerExamen;
+import utn.telefonica.app.Projections.CustomerExamen;
 import utn.telefonica.app.repository.CustomerRepository;
 
 import javax.swing.text.html.Option;
