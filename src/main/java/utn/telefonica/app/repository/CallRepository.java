@@ -13,14 +13,8 @@ import java.util.List;
 @Repository
 public interface CallRepository extends JpaRepository<Call,Integer> {
 
-    public List<Call> findByphoneLine(Integer id);
 
-    /* @Query(value = "SELECT C.customer.firstName as name, C as cost  FROM Call C where C.customer.id = :id and C.callDate BETWEEN :from and :to" )
-
-     List<CallTotals> getTotalCallsByDate(@Param("id") Integer id, @Param("from") Date from, @Param("to") Date to); //todo hacer revisando la implementacion de controller/service
-*/
-
-    @Query(value = "Select cu.first_name as Firstname, ca.total_price as cost\n" +
+    @Query(value = "Select ca.date_call as Date, ca.total_price as cost, l.line_number as phoneline\n" +
             "    from  users as cu\n" +
             "    join phonelines as l\n" +
             "    on cu.id_user = l.user_id_user\n" +
@@ -33,29 +27,17 @@ public interface CallRepository extends JpaRepository<Call,Integer> {
     Call addCall(String originNumber, String destinyNumber, Integer duration, Date date);
 
 
-    @Query(value = "select  ph.line_number as Numero, count(c.phone_line_destiny_id_line) as Cant\n" +
-            "\tfrom calls as c\n" +
-            "\tjoin phonelines as ph\n" +
-            "\ton c.phone_line_id_line = ph.id_line or c.phone_line_destiny_id_line = ph.id_line\n" +
-            "\tjoin users as u\n" +
-            "\ton u.id_user = id_usuario\n" +
-            "\tgroup by ph.line_number\n" +
-            "\torder by cant desc\n" +
-            "\tlimit 10\n",nativeQuery = true)
-    List<CustomerCallsCant> getTopCalls(int idNumber);
-
-
-    /* QUERY
-    Select cu.firstName as name, ca.total_price as cost
-    from  customers as cu
-    join lines as l
-    on cu.id_customer = l.id_customer
-    join calls as ca
-    on l.id_line =  caTo.id_line_to
-    where cu.id = :id and ca.callDate between :from and :to;
-     */
-    // @Query("SELECT c.calls from Customer c Where c.id = :id")
-    //CustomerCalls getTotalCalls(Integer id);
+    @Query(value = "select  phoneDestiny.line_number as number, count(c.phone_line_destiny_id_line) as Cant\n" +
+            "from calls as c\n" +
+            "join phonelines as ph\n" +
+            "on c.phone_line_id_line = ph.id_line\n" +
+            "join phonelines as phoneDestiny\n" +
+            "on phoneDestiny.id_line = c.phone_line_destiny_id_line\n" +
+            "where ph.user_id_user = ?1\n" +
+            "group by number \n" +
+            "order by cant desc\n" +
+            "limit 10",nativeQuery = true)
+    List<CustomerCallsCant> getTopCalls(int idUser);
 
 
 

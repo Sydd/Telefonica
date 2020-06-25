@@ -107,6 +107,7 @@
 						<exclude>**/utils/**</exclude>
 						<exclude>**/repository/**</exclude>
 						<exclude>**/projection/**</exclude>
+						<exclude>**/exceptions/**</exclude>
 					</excludes>
 				</configuration>
 				<executions>

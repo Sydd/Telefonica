@@ -7,6 +7,7 @@ import utn.telefonica.app.model.State;
 import utn.telefonica.app.model.User;
 import utn.telefonica.app.model.enums.UserType;
 import utn.telefonica.app.projections.BillsByCustomer;
+import utn.telefonica.app.projections.CallTotals;
 import utn.telefonica.app.projections.UserProjection;
 
 import java.util.ArrayList;
@@ -98,6 +99,19 @@ public class TestUtils {
 
         return dummBillBy;
 
+    }
+
+    public static CallTotals getDummyCallsTotal(){
+
+        ProjectionFactory factory = new SpelAwareProxyProjectionFactory();
+
+        CallTotals dummyCall = factory.createProjection(CallTotals.class);
+
+        dummyCall.setCost(23);
+
+        dummyCall.setDate("Dumb dumb");
+
+        return dummyCall;
     }
 
 

@@ -23,6 +23,9 @@ public interface UserRepository extends JpaRepository<User,Integer> {
     @Query("SELECT u FROM User u WHERE u.username = :username AND u.password = password(:password)")
     User findByUsernameAndPassword(@Param("username")String username, @Param("password") String password);
 
+    @Query("SELECT u FROM User u where u.id = :id")
+    UserProjection findByUserId(Integer id);
+
 
    // @Query(value = "Select c.first_name name, count(ca.id_call) cant from customers c join calls ca where c.id_customer = ca.customer_id_customer group by (c.id_customer)",nativeQuery = true)
     //List<CustomerCallsCant> getCallCant();

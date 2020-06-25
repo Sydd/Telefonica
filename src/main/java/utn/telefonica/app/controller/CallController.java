@@ -1,5 +1,6 @@
 package utn.telefonica.app.controller;
 
+import com.mysql.cj.util.TestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +37,10 @@ public class CallController {
     @GetMapping("api/call/")
     public ResponseEntity getMostCalledNumber(@RequestHeader("Authorization") String token){
         try {
-            return ResponseEntity.ok(callService.getMostCalledNumber(token));
+
+            int id = PhoneUtils.getUserByToken(token).getLoggedUser().getId();
+
+            return ResponseEntity.ok(callService.getMostCalledNumber(id));
         } catch (InvalidSessionException E){
             return new ResponseEntity(HttpStatus.FORBIDDEN);
         }

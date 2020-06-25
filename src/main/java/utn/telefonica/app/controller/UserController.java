@@ -14,6 +14,7 @@ import utn.telefonica.app.exceptions.InvalidLoginException;
 import utn.telefonica.app.exceptions.InvalidSessionException;
 import utn.telefonica.app.exceptions.UserNotexistException;
 import utn.telefonica.app.model.User;
+import utn.telefonica.app.projections.UserProjection;
 import utn.telefonica.app.service.CallService;
 import utn.telefonica.app.service.UserService;
 import utn.telefonica.app.session.Session;
@@ -21,6 +22,7 @@ import utn.telefonica.app.session.SessionManager;
 import utn.telefonica.app.utils.PhoneUtils;
 
 import javax.persistence.NonUniqueResultException;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -50,6 +52,15 @@ public class UserController {
         return ResponseEntity.ok(userService.getAllCostumers(firstName,dni));
     }
 
+
+  //  @GetMapping("api/me")
+  //  public ResponseEntity getCustomerWithCallDate(@RequestParam(required = false) String from,
+   // @RequestParam(required = false) String to){
+//
+  //      return
+   // }
+
+
     @GetMapping("customer/{id_customer}")
     public ResponseEntity getCustomerById(@PathVariable Integer id_customer,
                                           @RequestParam(required = false) String from,
@@ -62,7 +73,7 @@ public class UserController {
 
             if (isNull(from) || isNull(to)) {
 
-                response = ResponseEntity.ok(userService.getCostumerById(id_customer)); //todo cambiar esto por la proyection.
+                response = ResponseEntity.ok(userService.getCostumerById(id_customer));
 
             } else {
 
@@ -70,7 +81,11 @@ public class UserController {
 
                 Date toDate = PhoneUtils.dateConverter(to);
 
-                response = ResponseEntity.ok(callService.getTotalCallsById(id_customer, fromDate, toDate));
+                UserProjection aux = userService.getCostumerById(id_customer);
+
+                String completeName = aux.getFirstName() + "    " + aux.getLastName();
+
+                response = ResponseEntity.ok(callService.getTotalCallsById(id_customer, fromDate, toDate,completeName));
 
             }
 
@@ -82,7 +97,6 @@ public class UserController {
 
             response = new ResponseEntity("User not exist", HttpStatus.NOT_FOUND);
         }
-
         return response;
     }
 
@@ -104,7 +118,7 @@ public class UserController {
 
         } catch (DataIntegrityViolationException E) {
 
-            return new ResponseEntity("ERROR SQL " + E.getMostSpecificCause(), HttpStatus.CONFLICT); //TODO AVERIGUAR COMO
+            return new ResponseEntity("ERROR SQL " + E.getMostSpecificCause(), HttpStatus.CONFLICT);
 
         } catch (FieldIsNullException E) {
 

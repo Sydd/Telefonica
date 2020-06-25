@@ -117,11 +117,11 @@ public class TestUserService {
     @Test
     public void testGetCostumerById() throws UserNotexistException {
 
-        User u = TestUtils.getTestingCustomer();
+        UserProjection u = TestUtils.getTestingUserProjection();
 
-        when(userRepository.findById(1)).thenReturn(Optional.ofNullable(u));
+        when(userRepository.findByUserId(1)).thenReturn(u);
 
-        User aux = userService.getCostumerById(1);
+        UserProjection aux = userService.getCostumerById(1);
 
         assertEquals(aux.getId(), u.getId());
     }

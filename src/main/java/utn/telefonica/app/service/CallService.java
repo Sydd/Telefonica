@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import utn.telefonica.app.dto.CallDto;
+import utn.telefonica.app.dto.UserWithCalls;
 import utn.telefonica.app.exceptions.InvalidSessionException;
 import utn.telefonica.app.exceptions.UserNotexistException;
 import utn.telefonica.app.exceptions.ValidationException;
@@ -32,8 +33,9 @@ public class CallService {
     }
 
 
-    public List<CallTotals> getTotalCallsById(Integer id_customer, Date fromDate, Date toDate) {
-        return callRepository.getTotalCallsByDate(id_customer, fromDate, toDate);
+    public UserWithCalls getTotalCallsById(Integer id_customer, Date fromDate, Date toDate,String userName) {
+
+        return new UserWithCalls(userName,callRepository.getTotalCallsByDate(id_customer, fromDate, toDate));
     }
 
 
@@ -54,13 +56,9 @@ public class CallService {
     }
 
 
-    public List<CustomerCallsCant> getMostCalledNumber(String token) throws InvalidSessionException {
+    public List<CustomerCallsCant> getMostCalledNumber(int idUser) throws InvalidSessionException {
 
-            Session actualSession = Optional.
-                    ofNullable(sessionManager.getSession(token)).
-                    orElseThrow(() -> new InvalidSessionException());
-
-            return callRepository.getTopCalls(actualSession.getLoggedUser().getId());
+            return callRepository.getTopCalls(idUser);
 
 
     }

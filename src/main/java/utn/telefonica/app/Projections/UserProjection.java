@@ -41,4 +41,5 @@ public interface UserProjection {
 
     void setCity(City city);
 
+
 }

@@ -37,8 +37,8 @@ public class UserService {
     }
 
 
-    public User getCostumerById(Integer i) throws UserNotexistException {
-        return userRepository.findById(i).orElseThrow(() -> new UserNotexistException());
+    public UserProjection getCostumerById(Integer i) throws UserNotexistException {
+        return Optional.ofNullable(userRepository.findByUserId(i)).orElseThrow( ()-> new UserNotexistException());
     }
 
 
