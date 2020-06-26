@@ -1,5 +1,6 @@
 package utn.telefonica.app.projections;
 
+import utn.telefonica.app.model.Bill;
 import utn.telefonica.app.model.City;
 import utn.telefonica.app.model.PhoneLine;
 import utn.telefonica.app.model.enums.UserType;
@@ -7,11 +8,19 @@ import utn.telefonica.app.utils.PhoneUtils;
 
 import java.util.List;
 
-public interface UserProjection {
+public interface    UserProjection {
 
     int getId();
 
     void setId(int id);
+
+    String getDni();
+
+    void setDni(String dni);
+
+    UserType getUserType();
+
+    void setUserType(UserType userType);
 
     String getFirstName();
 
@@ -21,17 +30,9 @@ public interface UserProjection {
 
     void setLastName(String lastName);
 
-    UserType getUserType();
-
-    void setUserType(UserType userType);
-
     String getUsername();
 
     void setUsername(String username);
-
-    String getDni();
-
-    void setDni(String dni);
 
     List<PhoneLine> getPhoneLines();
 
@@ -41,5 +42,8 @@ public interface UserProjection {
 
     void setCity(City city);
 
+    List<Bill> getBills();
+
+    void setBills(List<Bill> bills);
 
 }

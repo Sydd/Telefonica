@@ -39,7 +39,7 @@ public class User {
     @Column(name = "created_at")
     private Date createdAt;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonBackReference
     private City city;
 

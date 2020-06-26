@@ -1,6 +1,7 @@
 package utn.telefonica.app.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,9 +29,11 @@ public class PhoneLine {
     private String lineNumber;
 
     @OneToMany(mappedBy = "phoneLine")
+    @JsonIgnore
     private List<Bill> bills;
 
     @OneToMany(mappedBy = "phoneLine")
+    @JsonIgnore
     private List<Call> callList;
 
     @ManyToOne(fetch = FetchType.LAZY)

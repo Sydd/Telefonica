@@ -1,6 +1,7 @@
 package utn.telefonica.app.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import utn.telefonica.app.exceptions.FieldIsNullException;
 import utn.telefonica.app.exceptions.UserNotexistException;
@@ -29,16 +30,21 @@ public class UserService {
 
     //Costumer loggin added. Desde el loginController se pide
     public User login(String username, String password) throws UserNotexistException, ValidationException {
+
         if (username == null || password == null) {
             throw new ValidationException("username and password must have a value!");
         }
+
         User customer = userRepository.findByUsernameAndPassword(username, password);
+
         return Optional.ofNullable(customer).orElseThrow(() -> new UserNotexistException());
     }
 
 
     public UserProjection getCostumerById(Integer i) throws UserNotexistException {
+
         return Optional.ofNullable(userRepository.findByUserId(i)).orElseThrow( ()-> new UserNotexistException());
+
     }
 
 
@@ -61,17 +67,26 @@ public class UserService {
 
             User userAux = userRepository.findById(user.getId()).orElseThrow(() -> new UserNotexistException());
 
-            userAux.setCity(user.getCity());
+            userAux.setCity(        isNull(user.getCity())? userAux.getCity() : user.getCity());
 
-            userAux.setLastName(user.getLastName());
+            userAux.setLastName(    isNull(user.getLastName() )? userAux.getLastName() : user.getLastName());
 
-            userAux.setFirstName(user.getFirstName());
+            userAux.setFirstName(   isNull(user.getFirstName() )? userAux.getFirstName() : user.getFirstName());
 
-            userAux.setDni(user.getDni());
+            userAux.setDni(         isNull(user.getDni()) ? userAux.getDni() : user.getDni());
 
-            userAux.setLastName(user.getLastName());
+            userRepository.save(userAux);
 
-            return userRepository.save(userAux);
+            return userAux;
+    }
+
+    public String deleteUser(int idUser) throws UserNotexistException{
+        try {
+            userRepository.deleteById(idUser);
+            return "User " + idUser + " deleted.";
+        } catch ( EmptyResultDataAccessException E) {
+               throw new UserNotexistException();
+        }
     }
 
     public User addUser(User user) throws FieldIsNullException{

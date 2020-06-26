@@ -8,6 +8,7 @@ import utn.telefonica.app.exceptions.ValidationException;
 import utn.telefonica.app.model.Call;
 import utn.telefonica.app.model.PhoneLine;
 import utn.telefonica.app.model.User;
+import utn.telefonica.app.projections.UserProjection;
 import utn.telefonica.app.session.Session;
 import utn.telefonica.app.session.SessionManager;
 
@@ -51,6 +52,7 @@ public class PhoneUtils {
                 orElseThrow(() -> new InvalidSessionException());
 
     }
+
 
     public static SessionManager getSessionManager(){
         return phoneUtils.sessionManager;

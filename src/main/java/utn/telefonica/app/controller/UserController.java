@@ -60,6 +60,19 @@ public class UserController {
   //      return
    // }
 
+    @DeleteMapping("customer/{id_user}")
+    public ResponseEntity deleteUserById(@PathVariable Integer id_user){
+        try {
+
+            userService.deleteUser(id_user);
+            return ResponseEntity.noContent().build();//? "User " + id_user + " deleted." : "User not found.");
+
+            } catch (UserNotexistException E) {
+
+            return ResponseEntity.notFound().build();
+
+        }
+    }
 
     @GetMapping("customer/{id_customer}")
     public ResponseEntity getCustomerById(@PathVariable Integer id_customer,

@@ -32,6 +32,7 @@ public class City{
     private int pricePerSecond;
 
     @OneToMany(mappedBy = "city")
+    @JsonIgnore
     private List<User> userList;
 
     //EL MappedBy lleva el nombre del atributo en la clase referenciada. En nuestor caso CityTo.

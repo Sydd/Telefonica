@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
-public class BackOfficeSessionFilter extends OncePerRequestFilter {
+public class  BackOfficeSessionFilter extends OncePerRequestFilter {
     @Autowired
     private SessionManager sessionManager;
 
