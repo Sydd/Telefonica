@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import utn.telefonica.app.exceptions.InvalidSessionException;
 import utn.telefonica.app.model.Call;
+import utn.telefonica.app.model.User;
 import utn.telefonica.app.projections.BillsByCustomer;
 import utn.telefonica.app.repository.BillRepository;
 import utn.telefonica.app.model.Bill;
@@ -20,12 +21,10 @@ import java.util.*;
 public class BillService {
     private final BillRepository billRepository;
 
-    private final SessionManager sessionManager;
 
     @Autowired
-    public BillService(BillRepository billRepository, SessionManager sessionManager) {
+    public BillService(BillRepository billRepository) {
         this.billRepository = billRepository;
-        this.sessionManager = sessionManager;
     }
 
 
@@ -36,15 +35,19 @@ public class BillService {
 
     public List<BillsByCustomer> getBillsByDate(String token, String from, String to) throws ParseException , InvalidSessionException {
 
-
-        Session actualSession = Optional.ofNullable(sessionManager.getSession(token)).orElseThrow(() -> new InvalidSessionException());
+        User user = PhoneUtils.getUserByToken(token).getLoggedUser();
 
         Date fromDate = PhoneUtils.dateConverter(from);
 
         Date toDate = PhoneUtils.dateConverter(to);
 
-        return billRepository.getBillsByDate(actualSession.getLoggedUser().getId(), fromDate, toDate);
+        return billRepository.getBillsByDate(user.getId(), fromDate, toDate);
 
+    }
+
+    public List<BillsByCustomer> getBillsByUser(int idCustomer){
+        List<BillsByCustomer> list = billRepository.getBillsByUserId(idCustomer);
+        return list;
     }
 
 }

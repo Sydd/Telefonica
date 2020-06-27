@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import utn.telefonica.app.exceptions.InvalidSessionException;
+import utn.telefonica.app.exceptions.UserNotexistException;
 import utn.telefonica.app.service.BillService;
 import utn.telefonica.app.model.Bill;
 import utn.telefonica.app.session.Session;
@@ -49,6 +50,13 @@ public class BillController {
         } catch (ParseException P) {
             return new ResponseEntity("Invalid date",HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @GetMapping("backoffice/bill/{idUser}")
+    public ResponseEntity getBillsByIdUser(@PathVariable int  idUser) {
+
+         return ResponseEntity.ok(billService.getBillsByUser(idUser));
+
     }
 }
 

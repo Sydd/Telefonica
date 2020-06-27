@@ -53,27 +53,6 @@ public class UserController {
     }
 
 
-  //  @GetMapping("api/me")
-  //  public ResponseEntity getCustomerWithCallDate(@RequestParam(required = false) String from,
-   // @RequestParam(required = false) String to){
-//
-  //      return
-   // }
-
-    @DeleteMapping("customer/{id_user}")
-    public ResponseEntity deleteUserById(@PathVariable Integer id_user){
-        try {
-
-            userService.deleteUser(id_user);
-            return ResponseEntity.noContent().build();//? "User " + id_user + " deleted." : "User not found.");
-
-            } catch (UserNotexistException E) {
-
-            return ResponseEntity.notFound().build();
-
-        }
-    }
-
     @GetMapping("customer/{id_customer}")
     public ResponseEntity getCustomerById(@PathVariable Integer id_customer,
                                           @RequestParam(required = false) String from,
@@ -90,28 +69,31 @@ public class UserController {
 
             } else {
 
-                Date fromDate = PhoneUtils.dateConverter(from);
-
-                Date toDate = PhoneUtils.dateConverter(to);
-
                 UserProjection aux = userService.getCostumerById(id_customer);
 
-                String completeName = aux.getFirstName() + "    " + aux.getLastName();
+                String completeName = aux.getFirstName() + " " + aux.getLastName();
 
-                response = ResponseEntity.ok(callService.getTotalCallsById(id_customer, fromDate, toDate,completeName));
+                response = ResponseEntity.ok(callService.getTotalCallsById(id_customer, from, to,completeName));
 
             }
 
-        } catch (Exception E) {
+        } catch (ParseException P) {
 
-            response = new ResponseEntity(E.getMessage(), HttpStatus.CONFLICT);
+            response =  new ResponseEntity("Invalid Date",HttpStatus.BAD_REQUEST);
 
         } catch (UserNotexistException E) {
 
             response = new ResponseEntity("User not exist", HttpStatus.NOT_FOUND);
+
+        }catch (Exception E) {
+
+            response = new ResponseEntity(E.getMessage(), HttpStatus.CONFLICT);
+
         }
         return response;
     }
+
+
 
 
     @PostMapping("customer/")
@@ -150,5 +132,18 @@ public class UserController {
         }
     }
 
+    @DeleteMapping("customer/{id_user}")
+    public ResponseEntity deleteUserById(@PathVariable Integer id_user){
+        try {
+
+            userService.deleteUser(id_user);
+            return ResponseEntity.noContent().build();//? "User " + id_user + " deleted." : "User not found.");
+
+            } catch (UserNotexistException E) {
+
+            return ResponseEntity.notFound().build();
+
+        }
+    }
 
 }

@@ -11,6 +11,7 @@ import utn.telefonica.app.exceptions.UserNotexistException;
 import utn.telefonica.app.exceptions.ValidationException;
 import utn.telefonica.app.projections.CallTotals;
 import utn.telefonica.app.projections.CustomerCallsCant;
+import utn.telefonica.app.projections.UserProjection;
 import utn.telefonica.app.repository.CallRepository;
 import utn.telefonica.app.model.Call;
 import utn.telefonica.app.session.Session;
@@ -23,19 +24,26 @@ import java.util.*;
 @Service
 public class CallService {
     private final CallRepository callRepository;
-    private final SessionManager sessionManager;
+
+    private final UserService userService;
 
 
     @Autowired
-    public CallService(CallRepository callRepository, SessionManager sessionManager) {
+    public CallService(CallRepository callRepository, UserService userService) {
+
         this.callRepository = callRepository;
-        this.sessionManager = sessionManager;
+
+        this.userService = userService;
     }
 
 
-    public UserWithCalls getTotalCallsById(Integer id_customer, Date fromDate, Date toDate,String userName) {
+    public UserWithCalls getTotalCallsById(Integer id_customer, String from, String to,String completeName) throws ParseException{
 
-        return new UserWithCalls(userName,callRepository.getTotalCallsByDate(id_customer, fromDate, toDate));
+        Date fromDate = PhoneUtils.dateConverter(from);
+
+        Date toDate = PhoneUtils.dateConverter(to);
+
+        return new UserWithCalls(completeName,callRepository.getTotalCallsByDate(id_customer, fromDate, toDate));
     }
 
 

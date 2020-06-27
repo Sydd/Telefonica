@@ -20,8 +20,10 @@ public class City{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id_city")
     private int id;  //Entity
+
     @Column(name = "cityName", unique = true)
     private String cityName;
+
     @Column(name = "linePrefix")
     private int linePrefix;
 
@@ -44,7 +46,6 @@ public class City{
     @OneToMany(mappedBy = "cityFrom")
     @JsonIgnore
     private List<Call> callsTo;
-
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference

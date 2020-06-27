@@ -19,17 +19,15 @@ import static org.mockito.Mockito.*;
 
 public class TestBillService {
 
-    SessionManager sessionManager;
     BillService billService;
     BillRepository billRepository;
 
 
     @Before
     public void setUp(){
-        sessionManager = mock(SessionManager.class);
         billRepository = mock(BillRepository.class);
 
-        billService = new BillService(billRepository,sessionManager);
+        billService = new BillService(billRepository);
     }
 
     @Test
@@ -44,7 +42,6 @@ public class TestBillService {
 
         byCustomerList.add(TestUtils.getDummyBillBy());
 
-        when(sessionManager.getSession("asd")).thenReturn(session);
 
         when(billRepository.getBillsByDate(session.getLoggedUser().getId(),fromDate,toDate)).thenReturn(byCustomerList);
 
@@ -63,7 +60,6 @@ public class TestBillService {
 
         byCustomerList.add(TestUtils.getDummyBillBy());
 
-        when(sessionManager.getSession("asd")).thenReturn(session);
 
         List<BillsByCustomer> toTest = billService.getBillsByDate("asd","asdsad","asdasd0");
 

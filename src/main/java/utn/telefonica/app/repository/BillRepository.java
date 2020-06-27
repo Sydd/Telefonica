@@ -13,13 +13,18 @@ import java.util.List;
 public interface BillRepository extends JpaRepository<Bill, Integer> {
 
 
-    @Query(value = "select b.created_at as CreatedAt,b.is_payed as IsPayed, b.total_price as TotalPrice, b.total_calls as TotalCalls\n" +
+    @Query(value = "select b.created_at as CreatedAt,b.due_date as DueDate,b.is_payed as IsPayed, b.total_price as TotalPrice, b.total_calls as TotalCalls\n" +
             "from bills as b\n" +
             "join phonelines as ph on ph.id_line = b.phone_line_id_line \n" +
             "join users as u " +
             "where u.id_user = ?1 and b.created_at between ?2 and ?3\n" +
             "order by b.created_at desc ",nativeQuery =     true)
     List<BillsByCustomer> getBillsByDate(int id, Date fromDate, Date toDate);
+
+    @Query(value = "select b.created_at as CreatedAt,b.due_date as DueDate,b.is_payed as IsPayed, b.total_price as TotalPrice, b.total_calls as TotalCalls\n" +
+            "from bills as b\n" +
+            "where b.user_id_user = ?1  ",nativeQuery =  true)
+    List<BillsByCustomer> getBillsByUserId(int idUser);
 }
 
 

@@ -10,7 +10,11 @@ public interface BillsByCustomer {
 
     boolean getIsPayed();
 
+    String getDueDate();
+
     void setTotalPrice(String totalPrice);
+
+    void setDueDate(String dueDate);
 
     void setCreatedAt(String createdAt);
 
