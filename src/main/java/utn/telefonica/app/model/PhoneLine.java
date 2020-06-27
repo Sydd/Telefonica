@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import utn.telefonica.app.model.enums.PhonelineType;
 
 import javax.persistence.*;
@@ -27,6 +28,9 @@ public class PhoneLine {
 
     @Column(name = "line_number",unique = true)
     private String lineNumber;
+
+    @Column(name = "state",columnDefinition = "boolean default false")
+    private boolean state;
 
     @OneToMany(mappedBy = "phoneLine")
     @JsonIgnore
