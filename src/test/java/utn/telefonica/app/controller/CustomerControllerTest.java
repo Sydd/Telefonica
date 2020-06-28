@@ -109,7 +109,17 @@ public class CustomerControllerTest {
 
 
     @Test
-    public void testUpdateUserOk
+    public void testUpdateUserOk() throws UserNotexistException {
+
+        User aux = TestUtils.getTestingCustomer();
+        when(costumerService.updateUser(aux)).thenReturn(aux);
+
+        ResponseEntity<User> response = userController.updateUser(aux);
+
+        assertEquals(response.getStatusCode(), HttpStatus.OK);
+        assertEquals(response.getBody().getId(),aux.getId());
+    }
+
     @Test
     public void testUpdateUserNotExists() throws UserNotexistException {
 
@@ -122,6 +132,35 @@ public class CustomerControllerTest {
         assertEquals(response.getStatusCode(),HttpStatus.NOT_FOUND);
 
     }
+
+    @Test
+    public void testDeleteUserByIdOk() throws UserNotexistException{
+
+        User aux = TestUtils.getTestingCustomer();
+
+        when(costumerService.deleteUser(aux.getId())).thenReturn(ResponseEntity.noContent().build().toString());
+
+        ResponseEntity<User> response = userController.deleteUserById(aux.getId());
+
+        assertEquals(response.getStatusCode(),HttpStatus.NO_CONTENT);
+
+    }
+
+    @Test
+    public void testDeleteUserByIdNotExists () throws UserNotexistException
+    {
+        User aux = TestUtils.getTestingCustomer();
+
+        when(costumerService.deleteUser(aux.getId())).thenThrow(new UserNotexistException());
+
+        ResponseEntity<User> response = userController.deleteUserById(aux.getId());
+
+        assertEquals(response.getStatusCode(),HttpStatus.NOT_FOUND);
+    }
+
+   /* @Test
+    public void testAddUserOk() */ //TODO Static method
+
 
 
 

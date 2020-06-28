@@ -2,6 +2,7 @@ package utn.telefonica.app.testutils;
 
 import org.springframework.data.projection.ProjectionFactory;
 import org.springframework.data.projection.SpelAwareProxyProjectionFactory;
+import utn.telefonica.app.Projections.CityRate;
 import utn.telefonica.app.model.City;
 import utn.telefonica.app.model.State;
 import utn.telefonica.app.model.User;
@@ -59,6 +60,51 @@ public class TestUtils {
         return userProjectionList;
 
     }
+
+
+
+    public static List<CityRate> getListCityProjections(){
+
+        ProjectionFactory factory = new SpelAwareProxyProjectionFactory();
+
+        CityRate cityRate = factory.createProjection(CityRate.class);
+
+        cityRate.setCost(getTestingCity().getCostPerSecond());
+
+        cityRate.setName(getTestingCity().getCityName());
+
+        cityRate.setPrice(getTestingCity().getPricePerSecond());
+
+        cityRate.setId(getTestingCity().getId());
+
+
+        List<CityRate> cityRatesList = new ArrayList<>();
+
+        cityRatesList.add(cityRate);
+
+        cityRatesList.add(getTestingCityRate());
+
+        return cityRatesList;
+
+    }
+
+    public static CityRate getTestingCityRate(){
+
+        ProjectionFactory factory = new SpelAwareProxyProjectionFactory();
+
+        CityRate cityRate = factory.createProjection(CityRate.class);
+
+        cityRate.setCost(getTestingCity().getCostPerSecond());
+
+        cityRate.setName(getTestingCity().getCityName());
+
+        cityRate.setPrice(getTestingCity().getPricePerSecond());
+
+        cityRate.setId(getTestingCity().getId());
+
+        return cityRate;
+    }
+
 
     public static UserProjection getTestingUserProjection(){
 
