@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import utn.telefonica.app.dto.CallDto;
 import utn.telefonica.app.exceptions.InvalidSessionException;
+import utn.telefonica.app.exceptions.UserNotexistException;
 import utn.telefonica.app.model.User;
 import utn.telefonica.app.projections.UserProjection;
 import utn.telefonica.app.service.CallService;
@@ -48,6 +49,17 @@ public class CallController {
             return new ResponseEntity(HttpStatus.FORBIDDEN);
         }
     }
+
+    @GetMapping("api/call/")
+    public ResponseEntity getCallsPerUser(@PathVariable Integer integer){
+        try {
+
+            return ResponseEntity.ok(callService.getCallsPerUser(integer));
+        } catch (UserNotexistException E){
+            return new ResponseEntity(HttpStatus.FORBIDDEN);
+        }
+    }
+
 
     @GetMapping("api/call/")
     public ResponseEntity getCallsByDate(@RequestHeader("Authorization") String token,

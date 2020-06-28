@@ -7,7 +7,7 @@ import utn.telefonica.app.model.State;
 import utn.telefonica.app.model.User;
 import utn.telefonica.app.model.enums.UserType;
 import utn.telefonica.app.projections.BillsByCustomer;
-import utn.telefonica.app.projections.CallTotals;
+import utn.telefonica.app.Projections.CallTotals;
 import utn.telefonica.app.projections.UserProjection;
 
 import java.util.ArrayList;

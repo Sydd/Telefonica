@@ -3,8 +3,9 @@ package utn.telefonica.app.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import utn.telefonica.app.Projections.CallsPerUser;
 import utn.telefonica.app.model.Call;
-import utn.telefonica.app.projections.CallTotals;
+import utn.telefonica.app.Projections.CallTotals;
 import utn.telefonica.app.projections.CustomerCallsCant;
 
 import java.util.Date;
@@ -38,6 +39,17 @@ public interface CallRepository extends JpaRepository<Call,Integer> {
             "order by cant desc\n" +
             "limit 10",nativeQuery = true)
     List<CustomerCallsCant> getTopCalls(int idUser);
+
+
+    @Query(value = "select c.date_call as DateCall,c.call_duration as Duration,c.total_price as TotalPrice\n" +
+            "from calls as c\n" +
+            "join phonelines as ph \n" +
+            "on c.phone_line_id_line = ph.id_line\n" +
+            "join customers as cu\n" +
+            "on ph.customer_id_customer = cu.id_customer\n" +
+            "where c.customer_id_customer = ?1\n", nativeQuery = true)
+    List<CallsPerUser> getCallsPerUser(int idUser);
+
 
 
 

@@ -1,10 +1,9 @@
 package utn.telefonica.app.service;
-
-import com.sun.tools.example.debug.tty.LineNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import utn.telefonica.app.exceptions.InvalidPhoneLineException;
+import utn.telefonica.app.exceptions.LineNotFoundException;
 import utn.telefonica.app.exceptions.UserNotexistException;
 import utn.telefonica.app.repository.LineRepository;
 import utn.telefonica.app.model.PhoneLine;

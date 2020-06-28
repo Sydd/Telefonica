@@ -7,7 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import utn.telefonica.app.dto.UserWithCalls;
 import utn.telefonica.app.exceptions.UserNotexistException;
-import utn.telefonica.app.projections.CallTotals;
+import utn.telefonica.app.Projections.CallTotals;
+import utn.telefonica.app.model.User;
 import utn.telefonica.app.projections.UserProjection;
 import utn.telefonica.app.service.CallService;
 
@@ -17,6 +18,7 @@ import utn.telefonica.app.utils.PhoneUtils;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -86,13 +88,40 @@ public class CustomerControllerTest {
     @Test
     public void testGetCustomerByIdNotFound() throws UserNotexistException {
 
+
         when(costumerService.getCostumerById(2)).thenThrow( new UserNotexistException());
 
         ResponseEntity<UserProjection> response = userController.getCustomerById(2,null,null);
 
         assertEquals(response.getStatusCode(), HttpStatus.NOT_FOUND);
+    }
 
- }
+
+    @Test
+    public void testGetAllCustomerOk() throws UserNotexistException{
+
+        when(costumerService.getAllCostumers(null,null)).thenReturn(TestUtils.getListUserProjection());
+
+        ResponseEntity< List <UserProjection>>response = userController.getAllCostumer(null,null);
+
+        assertEquals(TestUtils.getListUserProjection().get(0).getId(),response.getBody().get(0).getId());
+    }
+
+
+    @Test
+    public void testUpdateUserOk
+    @Test
+    public void testUpdateUserNotExists() throws UserNotexistException {
+
+        User aux = TestUtils.getTestingCustomer();
+
+        when(costumerService.updateUser(aux)).thenThrow(new UserNotexistException());
+
+        ResponseEntity<UserProjection> response = userController.updateUser(aux);
+
+        assertEquals(response.getStatusCode(),HttpStatus.NOT_FOUND);
+
+    }
 
 
 
