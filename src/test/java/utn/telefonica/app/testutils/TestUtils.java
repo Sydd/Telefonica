@@ -62,6 +62,52 @@ public class TestUtils {
 
     }
 
+
+
+    public static List<CityRate> getListCityProjections(){
+
+        ProjectionFactory factory = new SpelAwareProxyProjectionFactory();
+
+        CityRate cityRate = factory.createProjection(CityRate.class);
+
+        cityRate.setCost(getTestingCity().getCostPerSecond());
+
+        cityRate.setName(getTestingCity().getCityName());
+
+        cityRate.setPrice(getTestingCity().getPricePerSecond());
+
+        cityRate.setId(getTestingCity().getId());
+
+
+        List<CityRate> cityRatesList = new ArrayList<>();
+
+        cityRatesList.add(cityRate);
+
+        cityRatesList.add(getTestingCityRate());
+
+        return cityRatesList;
+
+    }
+
+    public static CityRate getTestingCityRate(){
+
+        ProjectionFactory factory = new SpelAwareProxyProjectionFactory();
+
+        CityRate cityRate = factory.createProjection(CityRate.class);
+
+        cityRate.setCost(getTestingCity().getCostPerSecond());
+
+        cityRate.setName(getTestingCity().getCityName());
+
+        cityRate.setPrice(getTestingCity().getPricePerSecond());
+
+        cityRate.setId(getTestingCity().getId());
+
+        return cityRate;
+    }
+
+
+    public static UserProjection getTestingUserProjection(){
     public static Session getTestingSession() {
         return new Session("token", getTestingCustomer(), Calendar.getInstance().getTime());
     }
