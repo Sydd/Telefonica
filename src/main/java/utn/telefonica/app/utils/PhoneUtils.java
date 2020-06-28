@@ -54,7 +54,13 @@ public class PhoneUtils {
     }
 
 
+
     public static SessionManager getSessionManager(){
+        if (phoneUtils.sessionManager != null )
         return phoneUtils.sessionManager;
+        else {
+            phoneUtils.sessionManager = new SessionManager();
+            return phoneUtils.sessionManager;
+        }
     }
 }

@@ -109,8 +109,6 @@ public class CustomerControllerTest {
 
 
     @Test
-    public void testUpdateUserOk
-    @Test
     public void testUpdateUserNotExists() throws UserNotexistException {
 
         User aux = TestUtils.getTestingCustomer();

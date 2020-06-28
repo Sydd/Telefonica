@@ -65,20 +65,21 @@ public class TestUserService {
     @Test
     public void testUpdateUser() throws UserNotexistException {
         User user = TestUtils.getTestingCustomer();
+
         User toUpdate = new User(1, "Pedro", "niero", "asd", "asd", Calendar.getInstance().getTime(), TestUtils.getTestingCity(), null,null,UserType.CUSTOMER, "111");
 
 
-        when(userRepository.findById(1)).thenReturn(Optional.ofNullable(user));
-        when(userRepository.save(user)).thenReturn(toUpdate);
-        User userAux = userService.updateUser(toUpdate);
+        when(userRepository.findById(1)).thenReturn(Optional.ofNullable(toUpdate));
 
-        assertEquals(userAux.getId(), toUpdate.getId());
+        when(userRepository.save(user)).thenReturn(user);
+
+        User userAux = userService.updateUser(user);
+
+        assertEquals(userAux.getId(), user.getId());
         assertEquals(userAux.getLastName(), toUpdate.getLastName());
         assertEquals(userAux.getFirstName(), toUpdate.getFirstName());
         assertEquals(userAux.getUsername(), toUpdate.getUsername());
         assertEquals(userAux.getDni(), toUpdate.getDni());
-        assertEquals(userAux.getCity(), toUpdate.getCity());
-
 
     }
 

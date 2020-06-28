@@ -26,25 +26,22 @@ import java.util.*;
 public class CallService {
     private final CallRepository callRepository;
 
-    private final UserService userService;
-
 
     @Autowired
-    public CallService(CallRepository callRepository, UserService userService) {
+    public CallService(CallRepository callRepository) {
 
         this.callRepository = callRepository;
 
-        this.userService = userService;
     }
 
 
-    public UserWithCalls getTotalCallsById(Integer id_customer, String from, String to,String completeName) throws ParseException{
+    public UserWithCalls getTotalCallsById(Integer id_customer, String from, String to, String completeName) throws ParseException {
 
         Date fromDate = PhoneUtils.dateConverter(from);
 
         Date toDate = PhoneUtils.dateConverter(to);
 
-        return new UserWithCalls(completeName,callRepository.getTotalCallsByDate(id_customer, fromDate, toDate));
+        return new UserWithCalls(completeName, callRepository.getTotalCallsByDate(id_customer, fromDate, toDate));
     }
 
 
@@ -60,13 +57,8 @@ public class CallService {
 
     }
 
-    public Call getCallById(Integer i) throws UserNotexistException{
-        return callRepository.findById(i).orElseThrow(()-> new UserNotexistException());
-    }
-
 
     public List<CustomerCallsCant> getMostCalledNumber(int idUser) throws InvalidSessionException {
-
             return callRepository.getTopCalls(idUser);
 
     }

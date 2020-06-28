@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import utn.telefonica.app.exceptions.BillNotFoundException;
 import utn.telefonica.app.exceptions.InvalidSessionException;
 import utn.telefonica.app.exceptions.UserNotexistException;
 import utn.telefonica.app.service.BillService;
@@ -23,20 +24,25 @@ public class BillController {
 
     private final BillService billService;
 
-    private final SessionManager sessionManager;
-
 
     @Autowired
-    public BillController(BillService billService, SessionManager sessionManager) {
+    public BillController(BillService billService) {
         this.billService = billService;
-        this.sessionManager = sessionManager;
 
     }
 
     @GetMapping("bill/{id}")
-    public Bill getBillById(@PathVariable Integer id) {
+    public ResponseEntity<Bill> getBillById(@PathVariable Integer id) {
 
-        return billService.getBillById(id);
+        try {
+
+            return new ResponseEntity<Bill>(billService.getBillById(id), HttpStatus.OK);
+
+        } catch (BillNotFoundException E) {
+
+            return ResponseEntity.notFound().build();
+
+        }
     }
 
     @GetMapping("api/bill")
@@ -48,18 +54,18 @@ public class BillController {
         } catch (InvalidSessionException E) {
             return new ResponseEntity(HttpStatus.FORBIDDEN);
         } catch (ParseException P) {
-            return new ResponseEntity("Invalid date",HttpStatus.BAD_REQUEST);
+            return new ResponseEntity("Invalid date", HttpStatus.BAD_REQUEST);
         }
     }
 
     @GetMapping("backoffice/bill/{idUser}")
-    public ResponseEntity getBillsByIdUser(@PathVariable int  idUser) {
-
-         return ResponseEntity.ok(billService.getBillsByUser(idUser));
+    public ResponseEntity getBillsByIdUser(@PathVariable int idUser) {
+        try {
+            return ResponseEntity.ok(billService.getBillsByUser(idUser));
+        } catch (UserNotexistException E) {
+            return ResponseEntity.notFound().build();
+        }
 
     }
-
-
 }
-
 

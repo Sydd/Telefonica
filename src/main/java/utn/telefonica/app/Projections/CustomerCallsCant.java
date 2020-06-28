@@ -5,4 +5,8 @@ public interface CustomerCallsCant {
     String getNumber();
 
     int getCant();
+
+    void setNumber(String number);
+
+    void setCant(int cant);
 }

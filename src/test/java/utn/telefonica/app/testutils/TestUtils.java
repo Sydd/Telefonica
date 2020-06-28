@@ -2,13 +2,16 @@ package utn.telefonica.app.testutils;
 
 import org.springframework.data.projection.ProjectionFactory;
 import org.springframework.data.projection.SpelAwareProxyProjectionFactory;
+import utn.telefonica.app.model.Call;
 import utn.telefonica.app.model.City;
 import utn.telefonica.app.model.State;
 import utn.telefonica.app.model.User;
 import utn.telefonica.app.model.enums.UserType;
 import utn.telefonica.app.projections.BillsByCustomer;
 import utn.telefonica.app.Projections.CallTotals;
+import utn.telefonica.app.projections.CustomerCallsCant;
 import utn.telefonica.app.projections.UserProjection;
+import utn.telefonica.app.session.Session;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -17,19 +20,18 @@ import java.util.List;
 public class TestUtils {
 
     public static User getTestingCustomer() {
-        return new User(1,"Juan","Carlos","username","password", Calendar.getInstance().getTime(),getTestingCity(), null,null,UserType.CUSTOMER,"223344");
+        return new User(1, "Juan", "Carlos", "username", "password", Calendar.getInstance().getTime(), getTestingCity(), null, null, UserType.CUSTOMER, "223344");
     }
 
-
-    public static City getTestingCity(){
-        return new City(1,"Mar del Pollo",223,2,3,null,null,null,getTestingState());
+    public static City getTestingCity() {
+        return new City(1, "Mar del Pollo", 223, 2, 3, null, null, null, getTestingState());
     }
 
-    public static State getTestingState(){
-        return new State(1,"Buenos Baires",null);
+    public static State getTestingState() {
+        return new State(1, "Buenos Baires", null);
     }
 
-    public static List<UserProjection> getListUserProjection(){
+    public static List<UserProjection> getListUserProjection() {
 
         ProjectionFactory factory = new SpelAwareProxyProjectionFactory();
 
@@ -60,7 +62,11 @@ public class TestUtils {
 
     }
 
-    public static UserProjection getTestingUserProjection(){
+    public static Session getTestingSession() {
+        return new Session("token", getTestingCustomer(), Calendar.getInstance().getTime());
+    }
+
+    public static UserProjection getTestingUserProjection() {
 
         ProjectionFactory factory = new SpelAwareProxyProjectionFactory();
 
@@ -83,7 +89,7 @@ public class TestUtils {
         return userProjection;
     }
 
-    public static BillsByCustomer getDummyBillBy(){
+    public static BillsByCustomer getDummyBillBy() {
 
         ProjectionFactory factory = new SpelAwareProxyProjectionFactory();
 
@@ -101,7 +107,21 @@ public class TestUtils {
 
     }
 
-    public static CallTotals getDummyCallsTotal(){
+    public static CustomerCallsCant getDummyCustomerCallCant() {
+
+        ProjectionFactory factory = new SpelAwareProxyProjectionFactory();
+
+        CustomerCallsCant dumbCustomer = factory.createProjection(CustomerCallsCant.class);
+
+        dumbCustomer.setCant(1);
+
+        dumbCustomer.setNumber("666");
+
+        return dumbCustomer;
+
+    }
+
+    public static CallTotals getDummyCallsTotal() {
 
         ProjectionFactory factory = new SpelAwareProxyProjectionFactory();
 
@@ -114,6 +134,21 @@ public class TestUtils {
         return dummyCall;
     }
 
+    public static Call getTestingCall() {
+        return new Call(1, 10, 5, 5, null, null, null, null, null, null);
+    }
 
+    public static utn.telefonica.app.Projections.CallsPerUser getDummCallPerUser() {
 
+        ProjectionFactory factory = new SpelAwareProxyProjectionFactory();
+
+        utn.telefonica.app.Projections.CallsPerUser dumbCustomer = factory.createProjection(utn.telefonica.app.Projections.CallsPerUser.class);
+
+        dumbCustomer.setDuration(2);
+
+        dumbCustomer.setTotalPrice(3);
+
+        return dumbCustomer;
+
+    }
 }

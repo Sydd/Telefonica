@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import utn.telefonica.app.exceptions.BillNotFoundException;
 import utn.telefonica.app.exceptions.InvalidSessionException;
+import utn.telefonica.app.exceptions.UserNotexistException;
 import utn.telefonica.app.model.Call;
 import utn.telefonica.app.model.User;
 import utn.telefonica.app.projections.BillsByCustomer;
@@ -28,8 +30,8 @@ public class BillService {
     }
 
 
-    public Bill getBillById(Integer i) {
-        return billRepository.findById(i).get();
+    public Bill getBillById(Integer i) throws BillNotFoundException {
+        return billRepository.findById(i).orElseThrow(()-> new BillNotFoundException());
     }
 
 
@@ -45,9 +47,12 @@ public class BillService {
 
     }
 
-    public List<BillsByCustomer> getBillsByUser(int idCustomer){
-        List<BillsByCustomer> list = billRepository.getBillsByUserId(idCustomer);
-        return list;
+    public List<BillsByCustomer> getBillsByUser(int idCustomer) throws UserNotexistException {
+        try {
+            return billRepository.getBillsByUserId(idCustomer);
+        } catch (Exception e) {
+            throw  new UserNotexistException();
+        }
     }
 
 }
