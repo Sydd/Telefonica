@@ -43,7 +43,7 @@ public class TestCallService {
 
         Date toDate = PhoneUtils.dateConverter("10-10-2020");
 
-        List<utn.telefonica.app.Projections.CallTotals> callTotals = new ArrayList<>();
+        List<utn.telefonica.app.projections.CallTotals> callTotals = new ArrayList<>();
 
         callTotals.add(TestUtils.getDummyCallsTotal());
 
@@ -83,9 +83,9 @@ public class TestCallService {
     @Test
     public void testGetCallsPerUser() throws UserNotexistException {
 
-        List<utn.telefonica.app.Projections.CallsPerUser> callsPerUsers = new ArrayList<>();
+        List<utn.telefonica.app.projections.CallsPerUser> callsPerUsers = new ArrayList<>();
 
-        utn.telefonica.app.Projections.CallsPerUser aux = TestUtils.getDummCallPerUser();
+        utn.telefonica.app.projections.CallsPerUser aux = TestUtils.getDummCallPerUser();
 
         callsPerUsers.add(aux);
 

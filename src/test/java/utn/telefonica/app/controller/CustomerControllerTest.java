@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import utn.telefonica.app.dto.UserWithCalls;
 import utn.telefonica.app.exceptions.UserNotexistException;
-import utn.telefonica.app.Projections.CallTotals;
+import utn.telefonica.app.projections.CallTotals;
 import utn.telefonica.app.model.User;
 import utn.telefonica.app.projections.UserProjection;
 import utn.telefonica.app.service.CallService;

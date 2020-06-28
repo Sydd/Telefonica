@@ -3,9 +3,9 @@ package utn.telefonica.app.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import utn.telefonica.app.Projections.CallsPerUser;
+import utn.telefonica.app.projections.CallsPerUser;
 import utn.telefonica.app.model.Call;
-import utn.telefonica.app.Projections.CallTotals;
+import utn.telefonica.app.projections.CallTotals;
 import utn.telefonica.app.projections.CustomerCallsCant;
 
 import java.util.Date;

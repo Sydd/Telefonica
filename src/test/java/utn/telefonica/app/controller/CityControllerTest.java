@@ -9,7 +9,7 @@ import utn.telefonica.app.exceptions.InvalidCityException;
 import utn.telefonica.app.model.City;
 import utn.telefonica.app.service.CityService;
 import utn.telefonica.app.testutils.TestUtils;
-import utn.telefonica.app.Projections.CityRate;
+import utn.telefonica.app.projections.CityRate;
 
 import java.util.List;
 

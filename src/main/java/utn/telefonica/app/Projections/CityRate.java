@@ -1,4 +1,4 @@
-package utn.telefonica.app.Projections;
+package utn.telefonica.app.projections;
 
 public interface CityRate {
 

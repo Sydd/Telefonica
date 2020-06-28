@@ -2,7 +2,7 @@ package utn.telefonica.app.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import utn.telefonica.app.Projections.CallTotals;
+import utn.telefonica.app.projections.CallTotals;
 
 import java.util.List;
 @AllArgsConstructor

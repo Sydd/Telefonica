@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import utn.telefonica.app.Projections.CityRate;
+import utn.telefonica.app.projections.CityRate;
 import utn.telefonica.app.exceptions.FieldIsNullException;
 import utn.telefonica.app.exceptions.InvalidCityException;
 import utn.telefonica.app.model.City;

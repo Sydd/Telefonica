@@ -4,11 +4,12 @@ import org.springframework.data.projection.ProjectionFactory;
 import org.springframework.data.projection.SpelAwareProxyProjectionFactory;
 import utn.telefonica.app.model.Call;
 import utn.telefonica.app.model.City;
+import utn.telefonica.app.projections.*;
 import utn.telefonica.app.model.State;
 import utn.telefonica.app.model.User;
 import utn.telefonica.app.model.enums.UserType;
 import utn.telefonica.app.projections.BillsByCustomer;
-import utn.telefonica.app.Projections.CallTotals;
+import utn.telefonica.app.projections.CallTotals;
 import utn.telefonica.app.projections.CustomerCallsCant;
 import utn.telefonica.app.projections.UserProjection;
 import utn.telefonica.app.session.Session;
@@ -107,10 +108,6 @@ public class TestUtils {
     }
 
 
-    public static UserProjection getTestingUserProjection(){
-    public static Session getTestingSession() {
-        return new Session("token", getTestingCustomer(), Calendar.getInstance().getTime());
-    }
 
     public static UserProjection getTestingUserProjection() {
 
@@ -184,11 +181,11 @@ public class TestUtils {
         return new Call(1, 10, 5, 5, null, null, null, null, null, null);
     }
 
-    public static utn.telefonica.app.Projections.CallsPerUser getDummCallPerUser() {
+    public static CallsPerUser getDummCallPerUser() {
 
         ProjectionFactory factory = new SpelAwareProxyProjectionFactory();
 
-        utn.telefonica.app.Projections.CallsPerUser dumbCustomer = factory.createProjection(utn.telefonica.app.Projections.CallsPerUser.class);
+        CallsPerUser dumbCustomer = factory.createProjection(CallsPerUser.class);
 
         dumbCustomer.setDuration(2);
 

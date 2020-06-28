@@ -1,4 +1,4 @@
-package utn.telefonica.app.Projections;
+package utn.telefonica.app.projections;
 
 import java.util.Date;
 
