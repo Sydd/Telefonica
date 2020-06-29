@@ -52,8 +52,8 @@ public class BillController {
             return new ResponseEntity("Invalid date", HttpStatus.BAD_REQUEST);
         }
     }
-
-    @GetMapping("backoffice/bill/{idUser}")
+    
+    @GetMapping("backoffice/bill/customer/{idUser}")
     @ApiOperation(value=" Get Bills By Id User")
     @ApiResponses( value = {
             @ApiResponse(code = 200, message = "Bill list returned"),

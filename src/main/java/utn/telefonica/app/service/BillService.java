@@ -1,6 +1,7 @@
 package utn.telefonica.app.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -50,7 +51,7 @@ public class BillService {
     public List<BillsByCustomer> getBillsByUser(int idCustomer) throws UserNotexistException {
         try {
             return billRepository.getBillsByUserId(idCustomer);
-        } catch (Exception e) {
+        } catch (EmptyResultDataAccessException e) {
             throw  new UserNotexistException();
         }
     }

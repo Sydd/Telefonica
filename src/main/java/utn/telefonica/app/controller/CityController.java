@@ -72,8 +72,7 @@ public class CityController {
 
         try
         {
-           cityService.getCityById(id_city);
-           response = new ResponseEntity(HttpStatus.OK);
+           response = ResponseEntity.ok(cityService.getCityById(id_city));
         }catch (InvalidCityException I)
         {
             response = new ResponseEntity(HttpStatus.NOT_FOUND);

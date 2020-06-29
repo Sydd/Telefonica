@@ -11,6 +11,7 @@ import utn.telefonica.app.model.enums.UserType;
 import utn.telefonica.app.projections.UserProjection;
 import utn.telefonica.app.repository.UserRepository;
 
+import javax.swing.text.html.Option;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
@@ -60,7 +61,7 @@ public class UserService {
         if (!isNull(dni)) {
             return userRepository.findByDni(dni);
         }
-        return userRepository.findByFirstNameStartsWith("");
+        return userRepository.findByFirstNameStartsWith(""); //todo agregar paginacion.
     }
 
     public User updateUser(User user) throws UserNotexistException{
@@ -82,6 +83,7 @@ public class UserService {
 
     public String deleteUser(int idUser) throws UserNotexistException{
         try {
+            Optional.ofNullable(userRepository.findByUserId(idUser)).orElseThrow(()->new EmptyResultDataAccessException("asd",2));
             userRepository.deleteById(idUser);
             return "User " + idUser + " deleted.";
         } catch ( EmptyResultDataAccessException E) {

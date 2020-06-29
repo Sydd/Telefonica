@@ -2,6 +2,7 @@ package utn.telefonica.app.service;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.dao.EmptyResultDataAccessException;
 import utn.telefonica.app.exceptions.FieldIsNullException;
 import utn.telefonica.app.exceptions.UserNotexistException;
 import utn.telefonica.app.exceptions.ValidationException;
@@ -52,6 +53,16 @@ public class TestUserService {
         when(userRepository.save(user)).thenReturn(user);
         User savedUser = userService.addUser(user);
         assertEquals(savedUser.getId(), savedUser.getId());
+    }
+
+    @Test
+    public void testAddUserNoType() throws FieldIsNullException {
+        User user = TestUtils.getTestingCustomer();
+        user.setUserType(null);
+        when(userRepository.save(user)).thenReturn(user);
+        User savedUser = userService.addUser(user);
+        assertEquals(savedUser.getId(), savedUser.getId());
+        assertEquals(savedUser.getUserType(), UserType.CUSTOMER);
     }
 
     @Test(expected = FieldIsNullException.class)
@@ -153,4 +164,46 @@ public class TestUserService {
         assertEquals(toTest.get(0).getId(), userList.get(0).getId());
     }
 
+    @Test
+    public void testGetAllCostumersWithDni(){
+
+        List<UserProjection> userList = TestUtils.getListUserProjection();
+
+        when(userRepository.findByDni("randi")).thenReturn(userList);
+
+        List<UserProjection>  toTest = userService.getAllCostumers(null,"randi");
+
+        assertEquals(toTest.get(0).getId(), userList.get(0).getId());
+    }
+
+    @Test
+    public void testGetAllCostumersWithNameAndDni(){
+
+        List<UserProjection> userList = TestUtils.getListUserProjection();
+
+        when(userRepository.findByFirstNameStartsWithAndDniStartsWith("randi","222")).thenReturn(userList);
+
+        List<UserProjection>  toTest = userService.getAllCostumers("randi","222");
+
+        assertEquals(toTest.get(0).getId(), userList.get(0).getId());
+    }
+
+    @Test
+    public void testDeleteUserOk() throws UserNotexistException{
+        int idUser = 1;
+
+        UserProjection u = TestUtils.getTestingUserProjection();
+
+        when(userRepository.findByUserId(idUser)).thenReturn(u);
+
+        assertEquals(userService.deleteUser(idUser),"User " + idUser + " deleted.");
+    }
+
+    @Test(expected = UserNotexistException.class)
+    public void testDeleteUserNotFound() throws UserNotexistException{
+        int idUser = 2;
+
+        when(userRepository.findByUserId(idUser)).thenReturn(null);
+        assertEquals(userService.deleteUser(idUser),"User " + idUser + " deleted.");
+    }
 }

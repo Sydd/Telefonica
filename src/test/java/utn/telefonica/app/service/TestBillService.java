@@ -2,6 +2,7 @@ package utn.telefonica.app.service;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.dao.EmptyResultDataAccessException;
 import utn.telefonica.app.exceptions.BillNotFoundException;
 import utn.telefonica.app.exceptions.InvalidSessionException;
 import utn.telefonica.app.exceptions.UserNotexistException;
@@ -23,7 +24,6 @@ public class TestBillService {
 
     BillService billService;
     BillRepository billRepository;
-    SessionManager sessionManager;
 
     @Before
     public void setUp(){
@@ -31,7 +31,7 @@ public class TestBillService {
 
         billService = new BillService(billRepository);
 
-        sessionManager = mock(SessionManager.class);
+        PhoneUtils.getSessionManager();
     }
 
 
@@ -53,6 +53,12 @@ public class TestBillService {
         assertEquals(aux.getId(),toTest.getId());
     }
 
+    @Test(expected = UserNotexistException.class)
+    public void testGetBillsByUserException() throws UserNotexistException {
+        when(billRepository.getBillsByUserId(10)).thenThrow(new EmptyResultDataAccessException("asd",10));
+        billService.getBillsByUser(10);
+    }
+
     @Test
     public void testGetBillsByUser() throws UserNotexistException {
         List<BillsByCustomer> byCustomerList = new ArrayList<>();
@@ -62,39 +68,42 @@ public class TestBillService {
         assertEquals(lisToTest.get(0).getTotalPrice(),byCustomerList.get(0).getTotalPrice());
     }
 
-  /*  @Test
-    public void testGetBillsByDateOk()throws ParseException, InvalidSessionException{
-      /*  List<BillsByCustomer> byCustomerList = new ArrayList<>();
+   @Test
+    public void testGetBillsByDateOk()throws ParseException, InvalidSessionException {
 
-        byCustomerList.add(TestUtils.getDummyBillBy());
+       String token = PhoneUtils.getSessionManager().createSession(TestUtils.getTestingCustomer());
 
-        String token = "token";
+       List<BillsByCustomer> byCustomerList = new ArrayList<>();
 
-        Date fromDate = PhoneUtils.dateConverter("10-10-2019");
+       byCustomerList.add(TestUtils.getDummyBillBy());
 
-        Date toDate = PhoneUtils.dateConverter("10-10-2020");
+       Date fromDate = PhoneUtils.dateConverter("10-10-2019");
 
-        when(billRepository.getBillsByDate(1, fromDate, toDate)).thenReturn(byCustomerList);
+       Date toDate = PhoneUtils.dateConverter("10-10-2020");
 
-        List<BillsByCustomer> toTest = billService.getBillsByDate(token,"10-10-2019","10-10-2020");
+       when(billRepository.getBillsByDate(1, fromDate, toDate)).thenReturn(byCustomerList);
 
-        assertEquals(toTest.get(0).getTotalPrice(),byCustomerList.get(0).getTotalPrice());*/
+       List<BillsByCustomer> toTest = billService.getBillsByDate(token, "10-10-2019", "10-10-2020");
+
+       assertEquals(toTest.get(0).getTotalPrice(), byCustomerList.get(0).getTotalPrice());
+
+   }
 
 
-
-    /*
     @Test(expected = ParseException.class)
     public void testGetBillsByDateException() throws ParseException, InvalidSessionException{
 
+        String token = PhoneUtils.getSessionManager().createSession(TestUtils.getTestingCustomer());
+
         List<BillsByCustomer> byCustomerList = new ArrayList<>();
 
-        Session session = new Session("asd",TestUtils.getTestingCustomer(), Calendar.getInstance().getTime());
+        //Session session = new Session("asd",TestUtils.getTestingCustomer(), Calendar.getInstance().getTime());
 
         byCustomerList.add(TestUtils.getDummyBillBy());
 
 
-        List<BillsByCustomer> toTest = billService.getBillsByDate("asd","asdsad","asdasd0");
+        List<BillsByCustomer> toTest = billService.getBillsByDate(token,"asdsad","asdasd0");
 
-    }*/
+    }
 }
 
