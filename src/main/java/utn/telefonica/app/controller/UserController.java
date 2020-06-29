@@ -47,6 +47,9 @@ public class UserController {
     }
 
     @GetMapping("customer/")
+    @ApiOperation(value="Get all costumers")
+    @ApiResponses( value = {
+            @ApiResponse(code = 200, message = "Customers were returned")})
     public ResponseEntity getAllCostumer(@RequestParam(required = false) String firstName,
                                          @RequestParam(required = false) String dni) {
         return ResponseEntity.ok(userService.getAllCostumers(firstName,dni));
@@ -54,6 +57,11 @@ public class UserController {
 
 
     @GetMapping("customer/{id_customer}")
+    @ApiOperation(value="Get Costumer by id")
+    @ApiResponses( value = {
+            @ApiResponse(code = 200, message = "Costumer by id is returned"),
+            @ApiResponse(code = 400, message = "A problem has occurred with the date"),
+            @ApiResponse(code = 404, message = "User search problem")})
     public ResponseEntity getCustomerById(@PathVariable Integer id_customer,
                                           @RequestParam(required = false) String from,
                                           @RequestParam(required = false) String to) {
@@ -120,6 +128,10 @@ public class UserController {
 
 
     @PutMapping("customer/")
+    @ApiOperation(value="Update user")
+    @ApiResponses( value = {
+            @ApiResponse(code = 200, message = "The user was updated"),
+            @ApiResponse(code = 404, message = "Problem with user search")})
     public ResponseEntity updateUser(@RequestBody User user) {
         try {
             return ResponseEntity.ok(userService.updateUser(user));
@@ -129,6 +141,10 @@ public class UserController {
     }
 
     @DeleteMapping("customer/{id_user}")
+    @ApiOperation(value="Delete user by id")
+    @ApiResponses( value = {
+            @ApiResponse(code = 204, message = "User is deleted"),
+            @ApiResponse(code = 404, message = "Trouble finding your User")})
     public ResponseEntity deleteUserById(@PathVariable Integer id_user){
         try {
 
