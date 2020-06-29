@@ -1,5 +1,8 @@
 package utn.telefonica.app.controller;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +36,11 @@ public class BillController {
 
 
     @GetMapping("api/bill")
+    @ApiOperation(value=" Get Bills By Date")
+    @ApiResponses( value = {
+            @ApiResponse(code = 200, message = "Bill list returned"),
+            @ApiResponse(code = 403, message = "You have a problem with your session"),
+            @ApiResponse(code = 400, message = "An error was unexpectedly generated during the scan.")})
     public ResponseEntity getBillsByDate(@RequestHeader("Authorization") String token,
                                          @RequestParam(required = true) String from,
                                          @RequestParam(required = true) String to) {
@@ -46,6 +54,10 @@ public class BillController {
     }
 
     @GetMapping("backoffice/bill/{idUser}")
+    @ApiOperation(value=" Get Bills By Id User")
+    @ApiResponses( value = {
+            @ApiResponse(code = 200, message = "Bill list returned"),
+            @ApiResponse(code = 404, message = "the user does not exist or is wrong")})
     public ResponseEntity getBillsByIdUser(@PathVariable int idUser) {
         try {
             return ResponseEntity.ok(billService.getBillsByUser(idUser));
@@ -56,6 +68,10 @@ public class BillController {
 
 
     @GetMapping("backoffice/bill/{id}")
+    @ApiOperation(value="Get Bill By Id Bill")
+    @ApiResponses( value = {
+            @ApiResponse(code = 200, message = "Bill is returned"),
+            @ApiResponse(code = 404, message = "the bill does not exist or is wrong")})
     public ResponseEntity<Bill> getBillById(@PathVariable Integer id) {
         try {
 

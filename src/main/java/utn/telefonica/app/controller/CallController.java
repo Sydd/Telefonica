@@ -1,6 +1,9 @@
 package utn.telefonica.app.controller;
 
 import com.mysql.cj.util.TestUtils;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +32,10 @@ public class CallController {
 
 
     @PostMapping("antenna/call/")
+    @ApiOperation(value="Add Call")
+    @ApiResponses( value = {
+            @ApiResponse(code = 200, message = "Added call"),
+            @ApiResponse(code = 400, message = "An error was unexpectedly generated during the scan")})
     public ResponseEntity addCall(@RequestBody CallDto call)
     {
         try {
@@ -39,6 +46,10 @@ public class CallController {
     }
 
     @GetMapping("api/call/top")
+    @ApiOperation(value="Get the number most called by your user")
+    @ApiResponses( value = {
+            @ApiResponse(code = 200, message = "The most called is returned"),
+            @ApiResponse(code = 403, message = "Problem with your user session")})
     public ResponseEntity getMostCalledNumber(@RequestHeader("Authorization") String token){
         try {
 
@@ -53,6 +64,11 @@ public class CallController {
 
 
     @GetMapping("api/call/")
+    @ApiOperation(value="Get calls by date")
+    @ApiResponses( value = {
+            @ApiResponse(code = 200, message = "Call list is returned"),
+            @ApiResponse(code = 403, message = "Problem with your user session"),
+            @ApiResponse(code = 400, message = "An error was unexpectedly generated during the scan")})
     public ResponseEntity getCallsByDate(@RequestHeader("Authorization") String token,
                                          @RequestParam(required = false) String from,
                                          @RequestParam(required = false) String to){
@@ -73,6 +89,10 @@ public class CallController {
     }
 
     @GetMapping("backoffice/call/{idUser}")
+    @ApiOperation(value="Get calls per user")
+    @ApiResponses( value = {
+            @ApiResponse(code = 200, message = "Call list is returned"),
+            @ApiResponse(code = 403, message = "Problem with your wrong user id")})
     public ResponseEntity getCallsPerUser(@PathVariable Integer idUser){
         try {
 
