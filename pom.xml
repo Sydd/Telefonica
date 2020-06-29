@@ -102,12 +102,15 @@
 				<configuration>
 					<excludes>
 						<exclude>**/model/**</exclude>
+						<exclude>**/TelefonicaApplicat**</exclude>
 						<exclude>**/session/**</exclude>
 						<exclude>**/config/**</exclude>
 						<exclude>**/utils/**</exclude>
 						<exclude>**/repository/**</exclude>
 						<exclude>**/projection/**</exclude>
+						<exclude>**/dto/**</exclude>
 						<exclude>**/exceptions/**</exclude>
+						<exclude>**/controller/login/Advice**</exclude>
 					</excludes>
 				</configuration>
 				<executions>

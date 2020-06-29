@@ -82,4 +82,24 @@ public class TestLineService {
 
     }
 
+    @Test
+    public void testUpdatePholine() throws InvalidPhoneLineException{
+
+        PhoneLine aux = TestUtils.getTestingPhoneline();
+
+        aux.setState(false);
+
+        when(lineRepository.findById(1)).thenReturn(Optional.of(TestUtils.getTestingPhoneline()));
+
+        assertEquals(lineService.updatePhonelines(aux).isState(),aux.isState());
+
+    }
+
+
+    @Test
+    public void testDeleteLine() throws LineNotFoundException  {
+        assertEquals(lineService.deleteLine(2),"Line 2 deleted.");
+    }
+
+
 }
