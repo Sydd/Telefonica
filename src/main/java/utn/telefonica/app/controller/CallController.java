@@ -50,15 +50,6 @@ public class CallController {
         }
     }
 
-    @GetMapping("api/call/")
-    public ResponseEntity getCallsPerUser(@PathVariable Integer integer){
-        try {
-
-            return ResponseEntity.ok(callService.getCallsPerUser(integer));
-        } catch (UserNotexistException E){
-            return new ResponseEntity(HttpStatus.FORBIDDEN);
-        }
-    }
 
 
     @GetMapping("api/call/")
@@ -81,4 +72,13 @@ public class CallController {
             }
     }
 
+    @GetMapping("backoffice/call/{idUser}")
+    public ResponseEntity getCallsPerUser(@PathVariable Integer idUser){
+        try {
+
+            return ResponseEntity.ok(callService.getCallsPerUser(idUser));
+        } catch (UserNotexistException E){
+            return new ResponseEntity(HttpStatus.FORBIDDEN);
+        }
+    }
 }

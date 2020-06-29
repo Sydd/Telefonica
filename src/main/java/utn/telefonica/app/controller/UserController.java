@@ -30,7 +30,7 @@ import java.util.Optional;
 import static java.util.Objects.isNull;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/backoffice/")
 public class UserController {
 
     private final UserService userService;

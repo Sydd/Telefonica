@@ -2,11 +2,9 @@ package utn.telefonica.app.testutils;
 
 import org.springframework.data.projection.ProjectionFactory;
 import org.springframework.data.projection.SpelAwareProxyProjectionFactory;
-import utn.telefonica.app.model.Call;
-import utn.telefonica.app.model.City;
+import utn.telefonica.app.model.*;
+import utn.telefonica.app.model.enums.PhonelineType;
 import utn.telefonica.app.projections.*;
-import utn.telefonica.app.model.State;
-import utn.telefonica.app.model.User;
 import utn.telefonica.app.model.enums.UserType;
 import utn.telefonica.app.projections.BillsByCustomer;
 import utn.telefonica.app.projections.CallTotals;
@@ -19,6 +17,9 @@ import java.util.Calendar;
 import java.util.List;
 
 public class TestUtils {
+public static PhoneLine getTestingPhoneline(){
+    return new PhoneLine(1, PhonelineType.MOBILE_PHONE,"666",true,null,null,null);
+}
 
     public static User getTestingCustomer() {
         return new User(1, "Juan", "Carlos", "username", "password", Calendar.getInstance().getTime(), getTestingCity(), null, null, UserType.CUSTOMER, "223344");
@@ -63,9 +64,7 @@ public class TestUtils {
 
     }
 
-
-
-    public static List<CityRate> getListCityProjections(){
+    public static List<CityRate> getListCityProjections() {
 
         ProjectionFactory factory = new SpelAwareProxyProjectionFactory();
 
@@ -90,7 +89,7 @@ public class TestUtils {
 
     }
 
-    public static CityRate getTestingCityRate(){
+    public static CityRate getTestingCityRate() {
 
         ProjectionFactory factory = new SpelAwareProxyProjectionFactory();
 
@@ -106,8 +105,6 @@ public class TestUtils {
 
         return cityRate;
     }
-
-
 
     public static UserProjection getTestingUserProjection() {
 

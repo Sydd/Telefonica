@@ -22,14 +22,14 @@ public class LineService {
         this.lineRepository = lineRepository;
     }
 
-    public void addLine(PhoneLine line)
+    public PhoneLine addLine(PhoneLine line)
     {
-        lineRepository.save(line);
+        return lineRepository.save(line);
     }
 
-    public PhoneLine getLineById(Integer Id)
+    public PhoneLine getLineById(Integer Id) throws LineNotFoundException
     {
-        return lineRepository.findById(Id).get();
+        return lineRepository.findById(Id).orElseThrow(()-> new LineNotFoundException());
     }
 
     public List<PhoneLine> getAllLines(String lineNumber) {

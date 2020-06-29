@@ -31,19 +31,6 @@ public class BillController {
 
     }
 
-    @GetMapping("bill/{id}")
-    public ResponseEntity<Bill> getBillById(@PathVariable Integer id) {
-
-        try {
-
-            return new ResponseEntity<Bill>(billService.getBillById(id), HttpStatus.OK);
-
-        } catch (BillNotFoundException E) {
-
-            return ResponseEntity.notFound().build();
-
-        }
-    }
 
     @GetMapping("api/bill")
     public ResponseEntity getBillsByDate(@RequestHeader("Authorization") String token,
@@ -65,7 +52,19 @@ public class BillController {
         } catch (UserNotexistException E) {
             return ResponseEntity.notFound().build();
         }
+    }
 
+
+    @GetMapping("backoffice/bill/{id}")
+    public ResponseEntity<Bill> getBillById(@PathVariable Integer id) {
+        try {
+
+            return new ResponseEntity<Bill>(billService.getBillById(id), HttpStatus.OK);
+
+        } catch (BillNotFoundException E) {
+
+            return ResponseEntity.notFound().build();
+        }
     }
 }
 

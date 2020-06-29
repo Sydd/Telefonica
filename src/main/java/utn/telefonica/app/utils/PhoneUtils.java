@@ -41,6 +41,14 @@ public class PhoneUtils {
                 .toUri();
     }
 
+    public static URI getLocation(PhoneLine phoneLine) {
+        return ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(phoneLine.getId())
+                .toUri();
+    }
+
     public static Date dateConverter(String toConvert) throws ParseException {
         Date aux = new SimpleDateFormat("dd-MM-yyyy").parse(toConvert);
         return aux;

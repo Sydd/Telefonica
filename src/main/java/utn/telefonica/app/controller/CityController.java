@@ -13,7 +13,7 @@ import utn.telefonica.app.service.CityService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/city")
+@RequestMapping("backoffice/city")
 public class CityController {
     private final CityService cityService;
 
