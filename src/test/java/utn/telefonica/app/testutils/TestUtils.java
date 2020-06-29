@@ -2,6 +2,7 @@ package utn.telefonica.app.testutils;
 
 import org.springframework.data.projection.ProjectionFactory;
 import org.springframework.data.projection.SpelAwareProxyProjectionFactory;
+import utn.telefonica.app.dto.CallDto;
 import utn.telefonica.app.model.Call;
 import utn.telefonica.app.model.City;
 import utn.telefonica.app.projections.*;
@@ -194,4 +195,13 @@ public class TestUtils {
         return dumbCustomer;
 
     }
+
+    public static CallDto getCallDto()
+    {
+      CallDto calldto = new CallDto("0","0","2","10-10-2020");
+
+        return calldto;
+    }
+
+
 }
