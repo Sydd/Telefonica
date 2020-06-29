@@ -10,6 +10,7 @@ import utn.telefonica.app.model.PhoneLine;
 
 import javax.sound.sampled.Line;
 import java.util.List;
+import java.util.Optional;
 
 import static java.util.Objects.isNull;
 
@@ -53,6 +54,7 @@ public class LineService {
 
     public String deleteLine(int idLine) throws LineNotFoundException {
         try {
+            Optional.ofNullable(lineRepository.findById(idLine)).orElseThrow(()-> new EmptyResultDataAccessException("asd",1));
             lineRepository.deleteById(idLine);
             return "Line " + idLine + " deleted.";
         } catch ( EmptyResultDataAccessException E) {

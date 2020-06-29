@@ -85,10 +85,6 @@ public class UserController {
 
             response = new ResponseEntity("User not exist", HttpStatus.NOT_FOUND);
 
-        }catch (Exception E) {
-
-            response = new ResponseEntity(E.getMessage(), HttpStatus.CONFLICT);
-
         }
         return response;
     }

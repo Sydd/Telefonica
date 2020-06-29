@@ -58,14 +58,10 @@ public class CustomerControllerTest {
         assertEquals(TestUtils.getTestingUserProjection().getId(), response.getBody().getId());
 
     }
-/*
+
     @Test
-    public void testGetCostumerWithDate() throws UserNotexistException, ParseException {
+    public void testGetCostumerByIdWithDate() throws UserNotexistException, ParseException {
 
-
-        Date fromDate = PhoneUtils.dateConverter("10-10-2019");
-
-        Date toDate = PhoneUtils.dateConverter("10-10-2020");
 
         List<CallTotals> totalsList = new ArrayList<>();
 
@@ -75,13 +71,33 @@ public class CustomerControllerTest {
 
         when(costumerService.getCostumerById(1)).thenReturn(TestUtils.getTestingUserProjection());
 
-        when(callService.getTotalCallsById(1, fromDate, toDate, "Dumb Dumb")).thenReturn(dto);
+        when(callService.getTotalCallsById(1, "10-10-2019", "10-10-2020", "Dumb Dumb")).thenReturn(dto);
 
         ResponseEntity<UserWithCalls> response = userController.getCustomerById(1,"10-10-2019","10-10-2020");
 
-        /assertEquals(dto.getCompleteName(), response.getBody().getCompleteName());
+        assertEquals(dto.getCompleteName(), response.getBody().getCompleteName());
 
-    }/*/
+    }
+
+    @Test
+    public void testGetCostumerByIdParseException() throws UserNotexistException, ParseException {
+
+
+        List<CallTotals> totalsList = new ArrayList<>();
+
+        totalsList.add(TestUtils.getDummyCallsTotal());
+
+        UserWithCalls dto = new UserWithCalls("DUMB", totalsList);
+
+        when(costumerService.getCostumerById(1)).thenReturn(TestUtils.getTestingUserProjection());
+
+        when(callService.getTotalCallsById(1, "10-10-2019", "10-10-2020", "Dumb Dumb")).thenThrow(new ParseException("asd",1));
+
+        ResponseEntity<UserWithCalls> response = userController.getCustomerById(1,"10-10-2019","10-10-2020");
+
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+
+    }
 
 
 

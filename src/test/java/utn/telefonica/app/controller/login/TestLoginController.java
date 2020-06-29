@@ -65,6 +65,10 @@ public class TestLoginController {
     }
 
 
+    @Test
+    public void testLogout(){
+        assertEquals(loginController.logout("token").getStatusCode(),HttpStatus.OK);
+    }
 }
 /*
     @PostMapping("/login")

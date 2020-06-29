@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import utn.telefonica.app.exceptions.FieldIsNullException;
 import utn.telefonica.app.exceptions.InvalidCityException;
+import utn.telefonica.app.exceptions.InvalidSessionException;
 import utn.telefonica.app.model.City;
 import utn.telefonica.app.service.CityService;
 import utn.telefonica.app.testutils.TestUtils;
@@ -40,6 +41,16 @@ public class CityControllerTest {
     }
 
     @Test
+    public void testGetAllNotFound() throws InvalidCityException {
+
+        when(cityService.getAllCities(TestUtils.getTestingCity().getCityName())).thenThrow(new InvalidCityException());
+
+        ResponseEntity< List <CityRate>> response = cityController.getAll(TestUtils.getTestingCity().getCityName());
+
+        assertEquals(response.getStatusCode(),HttpStatus.NOT_FOUND);
+    }
+
+    @Test
     public void testUpdateCityRateOk() throws InvalidCityException, FieldIsNullException {
         City aux = TestUtils.getTestingCity();
 
@@ -49,6 +60,7 @@ public class CityControllerTest {
 
         assertEquals(response.getStatusCode(), HttpStatus.OK);
     }
+
 
     @Test
     public void testUpdateCityRateException() throws InvalidCityException, FieldIsNullException {
@@ -72,4 +84,23 @@ public class CityControllerTest {
         assertEquals(response.getStatusCode(),HttpStatus.BAD_REQUEST);
     }
 
+    @Test
+    public void testGetCityById()  throws InvalidCityException {
+
+        when(cityService.getCityById(1)).thenReturn(TestUtils.getTestingCity());
+
+        ResponseEntity<City> responseEntity = cityController.getCityById(1);
+
+        assertEquals(responseEntity.getBody().getId(),1);
+    }
+
+
+    @Test
+    public void testGetCityByNotFound()  throws InvalidCityException {
+        when(cityService.getCityById(1)).thenThrow(new InvalidCityException());
+
+        ResponseEntity<City> responseEntity = cityController.getCityById(1);
+
+        assertEquals(responseEntity.getStatusCode(),HttpStatus.NOT_FOUND);
+    }
 }

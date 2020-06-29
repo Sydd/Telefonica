@@ -45,7 +45,7 @@ public class BillController {
         }
     }
 
-    @GetMapping("backoffice/bill/{idUser}")
+    @GetMapping("backoffice/bill/customer/{idUser}")
     public ResponseEntity getBillsByIdUser(@PathVariable int idUser) {
         try {
             return ResponseEntity.ok(billService.getBillsByUser(idUser));

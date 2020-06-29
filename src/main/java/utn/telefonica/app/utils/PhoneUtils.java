@@ -21,12 +21,12 @@ import java.util.Optional;
 @Component
 public class PhoneUtils {
 
-    SessionManager sessionManager;
+    private static SessionManager sessionManager;
 
     static PhoneUtils phoneUtils;
 
     @Autowired
-    public PhoneUtils(SessionManager sessionManager){
+    public PhoneUtils(SessionManager sessionManager) {
 
         this.sessionManager = sessionManager;
 
@@ -55,20 +55,19 @@ public class PhoneUtils {
     }
 
     public static Session getUserByToken(String token) throws InvalidSessionException {
-        return  Optional.
+        return Optional.
                 ofNullable(getSessionManager().getSession(token)).
                 orElseThrow(() -> new InvalidSessionException());
 
     }
 
 
-
-    public static SessionManager getSessionManager(){
-        if (phoneUtils.sessionManager != null )
-        return phoneUtils.sessionManager;
-        else {
-            phoneUtils.sessionManager = new SessionManager();
-            return phoneUtils.sessionManager;
+    public static SessionManager getSessionManager() {
+        if (sessionManager == null) {
+            sessionManager = new SessionManager();
+            return sessionManager;
+        } else {
+            return sessionManager;
         }
     }
 }

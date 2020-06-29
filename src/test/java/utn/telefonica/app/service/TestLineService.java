@@ -95,9 +95,24 @@ public class TestLineService {
 
     }
 
+    @Test
+    public void testAddLine(){
+        lineService.addLine(TestUtils.getTestingPhoneline());
+    }
 
     @Test
-    public void testDeleteLine() throws LineNotFoundException  {
+    public void testDeleteLineOk() throws LineNotFoundException  {
+
+        when(lineRepository.findById(2)).thenReturn(Optional.ofNullable(TestUtils.getTestingPhoneline()));
+
+        assertEquals(lineService.deleteLine(2),"Line 2 deleted.");
+    }
+
+    @Test(expected = LineNotFoundException.class)
+    public void testDeleteLineNotFound() throws LineNotFoundException  {
+
+        when(lineRepository.findById(1)).thenReturn(Optional.ofNullable(null));
+
         assertEquals(lineService.deleteLine(2),"Line 2 deleted.");
     }
 
