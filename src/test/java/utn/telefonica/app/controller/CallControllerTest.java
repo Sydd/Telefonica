@@ -1,17 +1,13 @@
 package utn.telefonica.app.controller;
 
-import org.apache.coyote.Response;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.stubbing.OngoingStubbing;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import utn.telefonica.app.dto.CallDto;
 import utn.telefonica.app.dto.UserWithCalls;
 import utn.telefonica.app.exceptions.InvalidSessionException;
 import utn.telefonica.app.exceptions.UserNotexistException;
-import utn.telefonica.app.model.Call;
-import utn.telefonica.app.model.User;
 import utn.telefonica.app.projections.CallsPerUser;
 import utn.telefonica.app.projections.CustomerCallsCant;
 import utn.telefonica.app.service.CallService;
@@ -159,7 +155,7 @@ public class CallControllerTest {
 
         assertEquals(responseEntity.getStatusCode(),HttpStatus.OK);
 
-        assertEquals(responseEntity.getBody().get(0).getNumber(),"666");
+        assertEquals(responseEntity.getBody().get(0).getOriginNumber(),"666");
 
     }
 

@@ -11,7 +11,6 @@ import utn.telefonica.app.projections.BillsByCustomer;
 import utn.telefonica.app.projections.CallTotals;
 import utn.telefonica.app.projections.CustomerCallsCant;
 import utn.telefonica.app.projections.UserProjection;
-import utn.telefonica.app.session.Session;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -161,7 +160,7 @@ public static PhoneLine getTestingPhoneline(){
 
         dumbCustomer.setCant(1);
 
-        dumbCustomer.setNumber("666");
+        dumbCustomer.setOriginNumber("666");
 
         return dumbCustomer;
 
@@ -173,7 +172,7 @@ public static PhoneLine getTestingPhoneline(){
 
         CallTotals dummyCall = factory.createProjection(CallTotals.class);
 
-        dummyCall.setCost(23);
+        dummyCall.setPrice("23");
 
         dummyCall.setDate("Dumb dumb");
 

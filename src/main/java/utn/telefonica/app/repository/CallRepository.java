@@ -15,16 +15,23 @@ import java.util.List;
 public interface CallRepository extends JpaRepository<Call,Integer> {
 
 
-    @Query(value = "Select ca.date_call as Date, ca.total_price as cost, l.line_number as phoneline\n" +
+    @Query(value = "Select ca.date_call as Date,ca.total_price as price,lo.line_number as OriginPhoneline,\n" +
+            "ld.line_number as destinyNumber,co.city_name as originCity, cd.city_name as destinyCity, ca.call_duration as duration\n" +
             "    from  users as cu\n" +
-            "    join phonelines as l\n" +
-            "    on cu.id_user = l.user_id_user\n" +
+            "    join phonelines as lo\n" +
+            "    on cu.id_user = lo.user_id_user\n" +
             "    join calls as ca\n" +
-            "    on l.id_line =  ca.phone_line_id_line\n" +
+            "    on lo.id_line =  ca.phone_line_id_line\n" +
+            "    join phonelines as ld\n" +
+            "    on ld.id_line = ca.phone_line_destiny_id_line\n" +
+            "    join cities  as co\n" +
+            "    on co.id_city = ca.city_from_id_city\n" +
+            "    join cities as cd\n" +
+            "    on cd.id_city = ca.city_to_id_city \n" +
             "    where cu.id_user = ?1 and ca.date_call between ?2 and ?3", nativeQuery = true)
     List<CallTotals> getTotalCallsByDate(Integer id, Date from, Date to);
 
-    @Query(value= "insert into calls(phone_line_id_line, phone_line_destiny_id_line, call_duration, date_call) values (?1,?2,?3,?4) ", nativeQuery = true)
+    @Query(value = "insert into calls(phone_line_id_line, phone_line_destiny_id_line, call_duration, date_call) values (?1,?2,?3,?4) ", nativeQuery = true)
     Call addCall(String originNumber, String destinyNumber, Integer duration, Date date);
 
 
@@ -37,7 +44,7 @@ public interface CallRepository extends JpaRepository<Call,Integer> {
             "where ph.user_id_user = ?1\n" +
             "group by number \n" +
             "order by cant desc\n" +
-            "limit 10",nativeQuery = true)
+            "limit 10", nativeQuery = true)
     List<CustomerCallsCant> getTopCalls(int idUser);
 
 
@@ -45,13 +52,9 @@ public interface CallRepository extends JpaRepository<Call,Integer> {
             "from calls as c\n" +
             "join phonelines as ph \n" +
             "on c.phone_line_id_line = ph.id_line\n" +
-            "join customers as cu\n" +
-            "on ph.customer_id_customer = cu.id_customer\n" +
-            "where c.customer_id_customer = ?1\n", nativeQuery = true)
+            "join users as cu\n" +
+            "on ph.user_id_user = cu.id_user \n" +
+            "where cu.id_user = ?1", nativeQuery = true)
     List<CallsPerUser> getCallsPerUser(int idUser);
-
-
-
-
 
 }

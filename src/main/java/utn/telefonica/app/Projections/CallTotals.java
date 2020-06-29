@@ -4,14 +4,31 @@ public interface CallTotals {
 
     String getDate();
 
-    String getPhoneline();
+    String getOriginPhoneline();
 
-    float getCost();
+    String getDestinyNumber();
+
+    String getPrice();
+
+    String getDestinyCity();
+
+    String getOriginCity();
+
+    String getDuration();
+
+    void setDuration(String duration);
 
     void setDate(String date);
 
-    void setCost(float cost);
+    void setPrice(String price);
 
-    void setPhoneline(String phoneline);
+    void setOriginPhoneline(String phoneline);
+
+    void setDestinyNumber(String number);
+
+    void setOriginCity(String city);
+
+    void setDestinyCity(String city);
+
 
 }
