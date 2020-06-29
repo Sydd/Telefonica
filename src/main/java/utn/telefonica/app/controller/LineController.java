@@ -59,6 +59,7 @@ public class LineController{
             return ResponseEntity.notFound().build();
         }
     }
+
     @DeleteMapping("backoffice/phonelines/{id_line}")
     public ResponseEntity deleteLineById(@PathVariable Integer id_Line){
         try {

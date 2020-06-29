@@ -10,6 +10,7 @@ import utn.telefonica.app.dto.CallDto;
 import utn.telefonica.app.exceptions.InvalidSessionException;
 import utn.telefonica.app.exceptions.UserNotexistException;
 import utn.telefonica.app.model.Call;
+import utn.telefonica.app.model.User;
 import utn.telefonica.app.projections.CallsPerUser;
 import utn.telefonica.app.service.CallService;
 import utn.telefonica.app.testutils.TestUtils;
@@ -66,5 +67,16 @@ public class CallControllerTest {
 
         assertEquals(response.getStatusCode(),HttpStatus.OK);
     }
-  
+
+    @Test
+    public void testGetCallsPerUserNotExistsExc() throws UserNotexistException{
+
+        when(callService.getCallsPerUser(1)).thenThrow(new UserNotexistException());
+        ResponseEntity response = callController.getCallsPerUser(1);
+
+        assertEquals(response.getStatusCode(),HttpStatus.FORBIDDEN);
+    }
+
+
+
 }

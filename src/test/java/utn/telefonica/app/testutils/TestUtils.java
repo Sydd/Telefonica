@@ -2,6 +2,7 @@ package utn.telefonica.app.testutils;
 
 import org.springframework.data.projection.ProjectionFactory;
 import org.springframework.data.projection.SpelAwareProxyProjectionFactory;
+import utn.telefonica.app.dto.CallDto;
 import utn.telefonica.app.model.*;
 import utn.telefonica.app.model.enums.PhonelineType;
 import utn.telefonica.app.projections.*;
@@ -146,6 +147,10 @@ public static PhoneLine getTestingPhoneline(){
 
         return dummBillBy;
 
+    }
+    public static PhoneLine getPhoneLineTest()
+    {
+        return new PhoneLine(1,null,"223",true,null,null,null);
     }
 
     public static CustomerCallsCant getDummyCustomerCallCant() {
