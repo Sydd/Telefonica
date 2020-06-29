@@ -17,6 +17,7 @@ import java.util.Calendar;
 import java.util.List;
 
 public class TestUtils {
+
 public static PhoneLine getTestingPhoneline(){
     return new PhoneLine(1, PhonelineType.MOBILE_PHONE,"666",true,null,null,null);
 }
@@ -191,4 +192,13 @@ public static PhoneLine getTestingPhoneline(){
         return dumbCustomer;
 
     }
+
+    public static CallDto getCallDto()
+    {
+      CallDto calldto = new CallDto("0","0","2","10-10-2020");
+
+        return calldto;
+    }
+
+
 }
