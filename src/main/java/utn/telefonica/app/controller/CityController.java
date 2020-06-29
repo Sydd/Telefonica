@@ -1,5 +1,8 @@
 package utn.telefonica.app.controller;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +27,10 @@ public class CityController {
 
 
     @GetMapping("/")
+    @ApiOperation(value="Get all cities")
+    @ApiResponses( value = {
+            @ApiResponse(code = 200, message = "Cities list is returned"),
+            @ApiResponse(code = 404, message = "Problem with city search")})
     public ResponseEntity<List<CityRate>> getAll(@RequestParam(required = false) String cityName) {
         try {
 
@@ -36,6 +43,11 @@ public class CityController {
     }
 
     @PutMapping("/")
+    @ApiOperation(value="Update city rate")
+    @ApiResponses( value = {
+            @ApiResponse(code = 200, message = "The city was updated"),
+            @ApiResponse(code = 404, message = "Problem with city search"),
+            @ApiResponse(code = 400, message = "The fields are incomplete or incorrect")})
     public ResponseEntity updateCityRate(@RequestBody(required = true) City newRate) {
         try {
 
@@ -49,6 +61,11 @@ public class CityController {
 
     }
 
+    @GetMapping("/{id_city}")
+    @ApiOperation(value="Get city by id")
+    @ApiResponses( value = {
+            @ApiResponse(code = 200, message = "city is returned"),
+            @ApiResponse(code = 404, message = "Problem in finding the city")})
     public ResponseEntity getCityById(@PathVariable Integer id_city)
     {
         ResponseEntity response;

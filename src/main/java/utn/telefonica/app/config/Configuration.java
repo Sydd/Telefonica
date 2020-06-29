@@ -69,7 +69,7 @@ public class Configuration {
         ApiInfo apiInfo = new ApiInfo(
                 "PhoneServices Api doc",
                 "Phoneservices api for UTN university.",
-                "0.5",
+                "0.85",
                 "Terms of service","SantiMati",
                 "Apache License Version 2.0",
                 "https://www.apache.org/licenses/LICENSE-2.0");
