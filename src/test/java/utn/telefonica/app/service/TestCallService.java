@@ -63,8 +63,8 @@ public class TestCallService {
     public void testAddCall() throws  ParseException{
         Date aux = PhoneUtils.dateConverter("10-10-10");
         CallDto callDto = new CallDto("123","3","10","10-10-10");
-        when(callRepository.addCall("123","3",Integer.getInteger(callDto.getCallDuration()),aux)).thenReturn(TestUtils.getTestingCall());
-        assertEquals(callService.addCall(callDto).getId(),1);
+        when(callRepository.addCall("123","3",callDto.getCallDuration(),aux)).thenReturn(2);
+        assertEquals(callService.addCall(callDto),2);
     }
 
     @Test

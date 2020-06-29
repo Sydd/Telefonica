@@ -1,6 +1,7 @@
 package utn.telefonica.app.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import utn.telefonica.app.projections.CallsPerUser;
@@ -8,6 +9,7 @@ import utn.telefonica.app.model.Call;
 import utn.telefonica.app.projections.CallTotals;
 import utn.telefonica.app.projections.CustomerCallsCant;
 
+import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
 
@@ -31,8 +33,10 @@ public interface CallRepository extends JpaRepository<Call,Integer> {
             "    where cu.id_user = ?1 and ca.date_call between ?2 and ?3", nativeQuery = true)
     List<CallTotals> getTotalCallsByDate(Integer id, Date from, Date to);
 
-    @Query(value = "insert into calls(phone_line_id_line, phone_line_destiny_id_line, call_duration, date_call) values (?1,?2,?3,?4) ", nativeQuery = true)
-    Call addCall(String originNumber, String destinyNumber, Integer duration, Date date);
+    @Modifying
+    @Query(value = "insert into calls(phone_line_id_line, phone_line_destiny_id_line, call_duration, date_call) values (?1,?2,?3,?4);    ", nativeQuery = true)
+    @Transactional
+    int addCall(String originNumber, String destinyNumber, String duration, Date date);
 
 
     @Query(value = "select  phoneDestiny.line_number as number, count(c.phone_line_destiny_id_line) as Cant\n" +

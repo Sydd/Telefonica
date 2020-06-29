@@ -2,9 +2,9 @@ package utn.telefonica.app.projections;
 
 public interface CustomerCallsCant {
 
-    String getOriginNumber();
+    String getNumber();
 
-    void setOriginNumber(String number);
+    void setNumber(String number);
 
     int getCant();
 

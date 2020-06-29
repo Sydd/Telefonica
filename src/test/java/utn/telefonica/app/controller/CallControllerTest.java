@@ -97,9 +97,10 @@ public class CallControllerTest {
 
     @Test
     public void testAddCallOk() throws ParseException {
+
         CallDto call = TestUtils.getCallDto();
 
-        when(callService.addCall(call)).thenReturn(TestUtils.getTestingCall());
+     //   when(callService.addCall(call)).thenReturn("Call saved");
 
         ResponseEntity response = callController.addCall(call);
 
@@ -155,7 +156,7 @@ public class CallControllerTest {
 
         assertEquals(responseEntity.getStatusCode(),HttpStatus.OK);
 
-        assertEquals(responseEntity.getBody().get(0).getOriginNumber(),"666");
+        assertEquals(responseEntity.getBody().get(0).getNumber(),"666");
 
     }
 

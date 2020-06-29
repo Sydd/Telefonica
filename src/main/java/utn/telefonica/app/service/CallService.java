@@ -46,15 +46,15 @@ public class CallService {
 
 
     //METODO EXPUESTO PARA LA ANTENNA.
-    public Call addCall(CallDto call) throws ParseException {
+    public int addCall(CallDto call) throws ParseException {
 
-        return callRepository.addCall(
+         return callRepository.addCall(
                 call.getOriginNumber(),
                 call.getDestinyNumber(),
-                Integer.getInteger(call.getCallDuration()),
+                 call.getCallDuration(),
                 PhoneUtils.dateConverter(call.getCallDate()));
 
-
+      //  return "Call saved";
     }
 
 

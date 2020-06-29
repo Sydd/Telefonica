@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import utn.telefonica.app.service.UserService;
@@ -31,7 +32,8 @@ public class LoginController {
     @ApiOperation(value="Login")
     @ApiResponses( value = {
             @ApiResponse(code = 200, message = "You are logged"),
-            @ApiResponse(code = 404, message = "You have a problem with your user")})
+            @ApiResponse(code = 400, message = "Username and password must have a value"),
+            @ApiResponse(code = 401, message = "Username or Password incorrect")})
     public ResponseEntity login(@RequestBody LoginRequestDto loginRequestDto) throws InvalidLoginException, ValidationException {
         ResponseEntity response;
         try {
@@ -39,7 +41,9 @@ public class LoginController {
             String token = sessionManager.createSession(c);
             response = ResponseEntity.ok().headers(createHeaders(token)).build();
         } catch (UserNotexistException e) {
-            response = ResponseEntity.notFound().build();
+            response = new ResponseEntity("User or Password incorrect", HttpStatus.UNAUTHORIZED);
+        } catch (ValidationException e) {
+            response = ResponseEntity.badRequest().build();
         }
         return response;
     }

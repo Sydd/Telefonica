@@ -160,7 +160,7 @@ public static PhoneLine getTestingPhoneline(){
 
         dumbCustomer.setCant(1);
 
-        dumbCustomer.setOriginNumber("666");
+        dumbCustomer.setNumber("666");
 
         return dumbCustomer;
 

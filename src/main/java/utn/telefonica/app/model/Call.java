@@ -22,6 +22,7 @@ public class Call{
     @Column(name = "id_call")
     private int id;
 
+
     @Column(name = "call_duration")
     private int callDuration;
 
@@ -54,7 +55,6 @@ public class Call{
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference(value="call_bill")
     private Bill bill;
-
 
 }
 

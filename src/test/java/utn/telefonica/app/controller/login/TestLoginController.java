@@ -54,14 +54,22 @@ public class TestLoginController {
     }
 
 
-    @Test(expected = InvalidLoginException.class)
+    @Test
     public void testLoginBadUser() throws UserNotexistException, ValidationException, InvalidLoginException {
         User u = TestUtils.getTestingCustomer();
         when(userService.login("user", "password")).thenThrow(new UserNotexistException());
         when(sessionManager.createSession(u)).thenReturn("tokenTest");
         ResponseEntity response = loginController.login(new LoginRequestDto("user", "password"));
-        assertEquals(response.getStatusCode(), HttpStatus.OK);
-        assertEquals(response.getHeaders().get("Authorization").get(0), "tokenTest");
+        assertEquals(response.getStatusCode(), HttpStatus.UNAUTHORIZED);
+    }
+
+    @Test
+    public void testLoginBadRequest() throws UserNotexistException, ValidationException, InvalidLoginException {
+        User u = TestUtils.getTestingCustomer();
+        when(userService.login("user", "password")).thenThrow(new ValidationException("asd"));
+        when(sessionManager.createSession(u)).thenReturn("tokenTest");
+        ResponseEntity response = loginController.login(new LoginRequestDto("user", "password"));
+        assertEquals(response.getStatusCode(), HttpStatus.BAD_REQUEST);
     }
 
 
