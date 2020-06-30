@@ -40,9 +40,12 @@ public class BillService {
 
         User user = PhoneUtils.getUserByToken(token).getLoggedUser();
 
+        System.out.println(user);
+
         Date fromDate = PhoneUtils.dateConverter(from);
 
         Date toDate = PhoneUtils.dateConverter(to);
+
 
         return billRepository.getBillsByDate(user.getId(), fromDate, toDate);
 
