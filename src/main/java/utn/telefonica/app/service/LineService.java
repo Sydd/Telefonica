@@ -54,6 +54,7 @@ public class LineService {
 
     public String deleteLine(int idLine) throws LineNotFoundException {
         try {
+
             Optional.ofNullable(lineRepository.findById(idLine)).orElseThrow(()-> new EmptyResultDataAccessException("asd",1));
             lineRepository.deleteById(idLine);
             return "Line " + idLine + " deleted.";

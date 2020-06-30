@@ -97,7 +97,9 @@ public class UserService {
                     isNull(user.getDni()) ||
                     isNull(user.getFirstName()) ||
                     isNull(user.getLastName()) ||
-                    isNull(user.getPassword())) {
+                    isNull(user.getPassword()) ||
+                    isNull(user.getCity()))
+            {
                 throw new FieldIsNullException();
             }
 
