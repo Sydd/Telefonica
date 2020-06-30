@@ -78,7 +78,7 @@ public class LineController{
         }
     }
 
-    @DeleteMapping("backoffice/phonelines/{id_line}")
+    @DeleteMapping("backoffice/phonelines/{id_Line}")
     @ApiOperation(value="Delete phoneline by id")
     @ApiResponses( value = {
             @ApiResponse(code = 204, message = "Phoneline is deleted"),

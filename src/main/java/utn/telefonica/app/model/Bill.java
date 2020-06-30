@@ -41,6 +41,7 @@ public class Bill{
     private Boolean isPayed;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JsonIgnore
     private PhoneLine phoneLine;
 
     @OneToMany(mappedBy = "bill")
@@ -48,6 +49,7 @@ public class Bill{
     private List<Call> calls;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JsonIgnore
     private User user;
 
 }

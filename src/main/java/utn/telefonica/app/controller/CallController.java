@@ -70,8 +70,8 @@ public class CallController {
             @ApiResponse(code = 403, message = "Problem with your user session"),
             @ApiResponse(code = 400, message = "An error was unexpectedly generated during the scan")})
     public ResponseEntity getCallsByDate(@RequestHeader("Authorization") String token,
-                                         @RequestParam(required = false) String from,
-                                         @RequestParam(required = false) String to){
+                                         @RequestParam(required = true) String from,
+                                         @RequestParam(required = true) String to){
         try {
 
             User user = PhoneUtils.getUserByToken(token).getLoggedUser();
